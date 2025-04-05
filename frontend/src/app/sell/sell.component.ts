@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from '../footer/footer.component';
 import { NavComponent } from '../nav/nav.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-sell',
-  imports: [FooterComponent, NavComponent],
+  imports: [NavComponent,FooterComponent],
   templateUrl: './sell.component.html',
   styleUrl: './sell.component.css'
 })

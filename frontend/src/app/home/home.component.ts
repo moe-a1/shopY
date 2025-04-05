@@ -4,7 +4,7 @@ import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-home',
-  imports: [NavComponent, FooterComponent],
+  imports: [NavComponent,FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

@@ -1,1 +1,131 @@
-<p>bazaar works!</p>
+<app-nav />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bazaar </title>
+  <link rel="stylesheet" href="https://unpkg.com/lucide-static/font/lucide.css">
+  <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-50 font-inter">
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex gap-8">
+      <!-- Sidebar -->
+      <div class="w-64 flex-shrink-0">
+        <div class="bg-white p-4 rounded-lg shadow">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold">Filter</h2>
+            <i class="lucide-filter w-5 h-5 text-gray-500"></i>
+          </div>
+          <button class="w-full bg-[#7B2334] text-white py-2 px-4 rounded-3xl ">
+            Apply Filter
+          </button>
+        </div>
+        
+      </div>
+
+      <!-- Main Content --><button class=" bg-[#7B2334] text-white py-2 px-4 rounded-3xl ">
+            Coming Soon
+          </button>
+       
+      <div class="flex-1">
+        <div class="grid grid-cols-1 gap-8">
+          <!-- Bazaar Item 1 -->
+          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="md:flex">
+              <div class="md:flex-shrink-0">
+                <img
+                  class="h-48 w-full object-cover md:w-64"
+                  src="images/OIP (5) 1.png"
+                  alt="October Bazaar for Antiques"
+                />
+              </div>
+              <div class="p-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                  October Bazaar for Antiques
+                </h3>
+                <p class="text-gray-600">
+                  This bazaar includes antiquities from 1970 to 1990
+                </p>
+              </div>
+            </div>
+          </div>
+          </a>
+
+          <!-- Bazaar Item 2 -->
+          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="md:flex">
+              <div class="md:flex-shrink-0">
+                <img
+                  class="h-48 w-full object-cover md:w-64"
+                  src="images/OIP (6) 1.png"
+                  alt="Ataba bazaar for royal things"
+                />
+              </div>
+              <div class="p-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                  Ataba bazaar for royal things
+                </h3>
+                <p class="text-gray-600">
+                  This bazaar includes antiquities from 1950 to 1960
+                </p>
+              </div>
+            </div>
+          </div>
+          </a>
+
+          <!-- Bazaar Item 3 -->
+          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
+            <div class="md:flex">
+              <div class="md:flex-shrink-0">
+                <img
+                  class="h-48 w-full object-cover md:w-64"
+                  src="images/OIP (8) 1.png"
+                  alt="Port Said Bazaar with used stuff"
+                />
+              </div>
+              <div class="p-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                  Port Said Bazaar with used stuff
+                </h3>
+                <p class="text-gray-600">
+                  This bazaar includes antiquities from 1950 to 1960
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-8 flex items-center justify-between">
+          <button class="flex items-center text-gray-600 hover:text-gray-900">
+            <i class="lucide-chevron-left w-5 h-5 mr-1"></i>
+            Previous
+          </button>
+          <div class="flex gap-2">
+            <button class="w-8 h-8 flex items-center justify-center rounded bg-red-800 text-white">1</button>
+            <button class="w-8 h-8 flex items-center justify-center rounded text-gray-600 hover:bg-gray-100">2</button>
+            <button class="w-8 h-8 flex items-center justify-center rounded text-gray-600 hover:bg-gray-100">3</button>
+            <button class="w-8 h-8 flex items-center justify-center rounded text-gray-600">...</button>
+            <button class="w-8 h-8 flex items-center justify-center rounded text-gray-600 hover:bg-gray-100">8</button>
+            <button class="w-8 h-8 flex items-center justify-center rounded text-gray-600 hover:bg-gray-100">9</button>
+            <button class="w-8 h-8 flex items-center justify-center rounded text-gray-600 hover:bg-gray-100">10</button>
+          </div>
+          <button class="flex items-center text-gray-600 hover:text-gray-900">
+            Next
+            <i class="lucide-chevron-right w-5 h-5 ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <app-footer />
+</body>
+</html>
