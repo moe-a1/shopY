@@ -1,0 +1,143 @@
+<app-nav></app-nav>
+<div class="bg-[#F0F0F0]"><div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
+    <i data-lucide="home" class="w-5 h-5"></i>
+    <span class="text-sm pt-5 "><a href="Acc.html">Sell</a>  > </span>
+    <span class="text-sm pt-5 font-bold">Add Product</span>
+</div>
+<div class="min-h-screen p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <!-- Progress Steps -->
+    <div class="flex justify-center mb-8">
+        <div class="flex items-center space-x-4">
+        <div class="flex items-center">
+            <div class="bg-[#9F3247] rounded-full p-4 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            </div>
+            <span class="ml-2 text-black font-medium">Description</span>
+        </div>
+        <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+        <div class="flex items-center opacity-50">
+            <div class="bg-gray-300 rounded-full p-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            </div>
+            <span class="ml-2 text-gray-500">Categories</span>
+        </div>
+        <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+        <div class="flex items-center opacity-50">
+            <div class="bg-gray-300 rounded-full p-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            </svg>
+            </div>
+            <span class="ml-2 text-gray-500">Photos</span>
+        </div>
+        <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+        <div class="flex items-center opacity-50">
+            <div class="bg-gray-300 rounded-full p-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+            </div>
+            <span class="ml-2 text-gray-500">Delivery</span>
+        </div>
+        </div>
+    </div>
+
+    <!-- Form Content -->
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-6">Fill in the basic information about your item</h2>
+        
+        <div class="grid grid-cols-2 gap-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Product name</label>
+            <input 
+            type="text" 
+            [(ngModel)]="productName"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
+            placeholder="Enter Product Name"
+            >
+            <div class="text-xs text-gray-500 mt-1">{{productName.length}}/60</div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Number of units available</label>
+            <input 
+            type="text" 
+            [(ngModel)]="availability"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
+            placeholder="Availability"
+            >
+        </div>
+
+        <div class="col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <textarea 
+            [(ngModel)]="description"
+            rows="4"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
+            placeholder="Enter Description of The Product"
+            ></textarea>
+            <div class="text-xs text-gray-500 mt-1">{{description.length}}/1200</div>
+        </div>
+
+        <div class="col-span-2">
+            <h3 class="text-lg font-medium mb-4">Dimensions (optional)</h3>
+            <div class="grid grid-cols-3 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Length [mm]</label>
+                <input 
+                type="number" 
+                [(ngModel)]="dimensions.length"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
+                >
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Width [mm]</label>
+                <input 
+                type="number"
+                [(ngModel)]="dimensions.width"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
+                >
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Height [mm]</label>
+                <input 
+                type="number"
+                [(ngModel)]="dimensions.height"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
+                >
+            </div>
+            </div>
+        </div>
+
+        <div class="col-span-2">
+            <h3 class="text-lg font-medium mb-4">Initial price</h3>
+            <input 
+            type="number"
+            [(ngModel)]="price"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
+            placeholder="Product price"
+            >
+        </div>
+        </div>
+    </div>
+
+    <!-- Next Button -->
+    <div class="mt-6 flex justify-end">
+        <a 
+        routerLink="/sell/categories"
+          class="px-6 py-2 bg-[#7B2334] text-white rounded-full  inline-block px-8 py-3"
+          id="next-button" 
+        >
+          Next
+        </a>
+
+      </div>
+    </div>
+</div>
+<app-footer></app-footer>
+
