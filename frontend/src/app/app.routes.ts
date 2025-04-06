@@ -6,6 +6,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AddProductComponent } from './sell/add-product/add-product.component';
+import { DescriptionComponent } from './sell/description/description.component';
+import { CategoriesComponent } from './sell/categories/categories.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -15,5 +17,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'sell/addProduct', component: AddProductComponent },
+    { path: 'sell/description', component: DescriptionComponent },
+    { path: 'sell/categories', component: CategoriesComponent },
 ];
 

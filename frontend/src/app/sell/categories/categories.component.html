@@ -1,0 +1,313 @@
+<app-nav></app-nav>
+<div class="bg-[#F0F0F0]">
+  <div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
+    <i data-lucide="home" class="w-5 h-5"></i>
+    <span class="text-sm pt-5"><a href="Acc.html">Sell</a> > </span>
+    <span class="text-sm pt-5 font-bold">Add Product</span>
+  </div>
+  <div class="min-h-screen p-6">
+    <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
+      <!-- Progress Steps -->
+      <div class="flex justify-center mb-8">
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center">
+            <div class="bg-green-600 rounded-full p-4 flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <span class="ml-2 text-green-600 font-medium">Description</span>
+          </div>
+          <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+          <div class="flex items-center">
+            <div class="bg-[#9F3247] rounded-full p-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+            </div>
+            <span class="ml-2 text-[#9F3247] font-medium">Categories</span>
+          </div>
+          <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+          <div class="flex items-center opacity-50">
+            <div class="bg-gray-300 rounded-full p-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              </svg>
+            </div>
+            <span class="ml-2 text-gray-500">Photos</span>
+          </div>
+          <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+          <div class="flex items-center opacity-50">
+            <div class="bg-gray-300 rounded-full p-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+            </div>
+            <span class="ml-2 text-gray-500">Delivery</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Content -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-6">Select the category your goods belong to (max. 3)</h2>
+        
+        <div class="border border-gray-200 rounded-lg">
+          <!-- Main Categories List + Product Categories Grid -->
+          <div class="grid grid-cols-12 gap-0">
+            <!-- Main Categories Sidebar -->
+            <div class="col-span-3 border-r border-gray-200">
+              <div class="p-4">
+                <div class="space-y-2">
+                  <button 
+                    *ngFor="let category of categories"
+                    (click)="toggleCategory(category)"
+                    class="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-md flex items-center justify-between"
+                    [class.font-medium]="category.expanded"
+                  >
+                    {{ category.name }}
+                    <svg 
+                      class="w-4 h-4 text-gray-500"
+                      [class.transform]="category.expanded"
+                      [class.rotate-90]="category.expanded"
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Products Categories Grid -->
+            <div class="col-span-9 p-4">
+              <div class="grid grid-cols-4 gap-6">
+                <!-- Phones and accessories -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">Phones and accessories</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Smartphones']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Smartphones</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Smartwatches']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Smartwatches</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Tablets']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Tablets</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['accessories GSM']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Accessories GSM</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Cases and covers']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Cases and covers</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Computers -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">Computers</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Laptops']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Laptops</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Laptop components']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Laptop components</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Desktop Computers']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Desktop Computers</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Computer components']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Computer components</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Printers and scanners']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Printers and scanners</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- TVs and accessories -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">TVs and accessories</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['TVs']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>TVs</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Projectors']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Projectors</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Headphones']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Headphones</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Audio for home']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Audio for home</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Home cinema']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Home cinema</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Consoles and slot machines -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">Consoles and slot machines</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Console PlayStation 5']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Console PlayStation 5</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Console Xbox Series X/S']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Console Xbox Series X/S</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Console PlayStation 4']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Console PlayStation 4</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Console Xbox One']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Console Xbox One</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Console Nintendo Switch']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Console Nintendo Switch</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected Categories -->
+        <div class="mt-6">
+          <div class="text-sm text-gray-600 mb-2">Selected categories:</div>
+          <div class="flex flex-wrap gap-2">
+            <div 
+              *ngFor="let category of getSelectedCategoriesArray()"
+              class="bg-gray-100 px-3 py-1 rounded-full flex items-center space-x-2"
+            >
+              <span>{{ category }}</span>
+              <button 
+                (click)="removeCategory(category)"
+                class="text-gray-500 hover:text-gray-700"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next Button -->
+      <div class="flex justify-end">
+        <button 
+          (click)="onNext()"
+          class="bg-[#9F3247] text-white px-6 py-2 rounded-md hover:bg-[#8a2c3e] focus:outline-none focus:ring-2 focus:ring-[#9F3247] focus:ring-offset-2"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
