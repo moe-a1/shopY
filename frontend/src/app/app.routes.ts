@@ -5,7 +5,7 @@ import { BazaarComponent } from './bazaar/bazaar.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { AddProductComponent } from './add-product/add-product.component';
+import { AddProductComponent } from './sell/add-product/add-product.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -14,6 +14,6 @@ export const routes: Routes = [
     { path: 'bazaar', component: BazaarComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
-    { path: 'addProduct', component: AddProductComponent },
+    { path: 'sell/addProduct', component: AddProductComponent },
 ];
 

@@ -8,13 +8,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="font-inter">
-    <div class="min-h-screen bg-gray-50 flex flex-col">
+    <div class=" bg-gray-50 flex flex-col">
       <div class="bg-[#F0F0F0]"><div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
           <i data-lucide="home" class="w-5 h-5"></i>
-          <span class="text-sm pt-5 ">Sell > </span>
+          <span class="text-sm pt-5 "><a href="Acc.html">Sell</a>  > </span>
           <span class="text-sm pt-5 font-bold">Dashboard</span>
       </div>
-      <!-- Main Content -->
       <div class="flex-1 p-8">
         <div class="max-w-4xl mx-auto">
           <div class="bg-white shadow sm:rounded-lg p-16">
@@ -27,7 +26,7 @@
               </p>
               <div class="mt-6 flex justify-end">
                 <a 
-                routerLink="/addProduct"
+                routerLink="/sell"
                   class="px-6 py-2 bg-[#7B2334] text-white rounded-full  inline-block px-8 py-3"
                   id="next-button" 
                 >
@@ -39,4 +38,7 @@
         </div>
       </div>
     </div>
+    </div>
+  </body>
+</html>
 <app-footer />
