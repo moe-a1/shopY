@@ -1,0 +1,42 @@
+<app-nav />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Started Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="font-inter">
+    <div class="min-h-screen bg-gray-50 flex flex-col">
+      <div class="bg-[#F0F0F0]"><div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
+          <i data-lucide="home" class="w-5 h-5"></i>
+          <span class="text-sm pt-5 ">Sell > </span>
+          <span class="text-sm pt-5 font-bold">Dashboard</span>
+      </div>
+      <!-- Main Content -->
+      <div class="flex-1 p-8">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white shadow sm:rounded-lg p-16">
+            <div class="flex flex-col items-center space-y-8 text-center">
+              <h2 class="text-4xl font-bold text-[#7B2334]">
+                Get Started
+              </h2>
+              <p class=" text-xl">
+                Add your first product to sell 
+              </p>
+              <div class="mt-6 flex justify-end">
+                <a 
+                routerLink="/addProduct"
+                  class="px-6 py-2 bg-[#7B2334] text-white rounded-full  inline-block px-8 py-3"
+                  id="next-button" 
+                >
+                  Next
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<app-footer />
