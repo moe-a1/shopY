@@ -23,8 +23,12 @@
             <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
         </div>
         <div class="flex gap-4">
-            <button>❤️</button>
+            <button><i class="fa-solid fa-cart-shopping" style="color: #7b2334;"></i></button>
             <button><a routerLink="/login">👤</a></button>
+            <button *ngIf="isBazaarPage"
+            class="px-5 py-2 rounded-full text-white font-bold bg-gradient-to-r from-pink-500 to-red-600 shadow-lg animate-bounce hover:scale-105 transition-transform duration-300">
+            🚀 Coming Soon
+          </button>          
         </div>
         </div>
     </div>

@@ -64,7 +64,7 @@
           <label class="block border-2 border-dashed border-gray-300 rounded-md p-8 text-center hover:border-primary transition-colors cursor-pointer">
             <input type="file" accept="image/*" (change)="onFileSelected($event, 'front')" hidden>
             <div class="flex flex-col items-center">
-              <i data-lucide="upload" class="w-6 h-6 text-primary mb-2"></i>
+              <i class="fa-solid fa-upload fa-xl" style="color: #7b2334;"></i><br>
               <span class="text-sm text-primary">Upload picture</span>
               <div *ngIf="frontPreview" class="mt-2">
                 <img [src]="frontPreview" alt="Front ID Preview" class="w-48 h-auto rounded-md mx-auto">
@@ -79,7 +79,7 @@
           <label class="block border-2 border-dashed border-gray-300 rounded-md p-8 text-center hover:border-primary transition-colors cursor-pointer">
             <input type="file" accept="image/*" (change)="onFileSelected($event, 'back')" hidden>
             <div class="flex flex-col items-center">
-              <i data-lucide="upload" class="w-6 h-6 text-primary mb-2"></i>
+              <i class="fa-solid fa-upload fa-xl" style="color: #7b2334;"></i><br>
               <span class="text-sm text-primary">Upload picture</span>
               <div *ngIf="backPreview" class="mt-2">
                 <img [src]="backPreview" alt="Back ID Preview" class="w-48 h-auto rounded-md mx-auto">
