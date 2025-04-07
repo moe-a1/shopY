@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavComponent } from '../../nav/nav.component';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +19,8 @@ interface Category {
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent {
+  constructor(private router: Router) {}
+
   categories: Category[] = [
     { name: 'Electronics', subcategories: [], expanded: true },
     { name: 'Fashion', subcategories: [], expanded: false },
@@ -37,8 +40,8 @@ export class CategoriesComponent {
     'accessories GSM': false,
     'Cases and covers': false,
     'Laptops': false,
-    'Laptop components': false,  // Pre-selected in the image
-    'Desktop Computers': false,  // Pre-selected in the image
+    'Laptop components': false,
+    'Desktop Computers': false,
     'Computer components': false,
     'Printers and scanners': false,
     'TVs': false,
@@ -74,6 +77,6 @@ export class CategoriesComponent {
 
   onNext() {
     console.log('Selected categories:', this.getSelectedCategoriesArray());
-    // Navigate to the next step (Photos) here
+    this.router.navigate(['/sell/photos']); 
   }
 }

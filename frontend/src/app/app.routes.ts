@@ -8,6 +8,9 @@ import { SignupComponent } from './signup/signup.component';
 import { AddProductComponent } from './sell/add-product/add-product.component';
 import { DescriptionComponent } from './sell/description/description.component';
 import { CategoriesComponent } from './sell/categories/categories.component';
+import { PhotosComponent } from './sell/photos/photos.component';
+import { DeliveryComponent } from './sell/delivery/delivery.component';
+import { YourProductsComponent } from './sell/your-products/your-products.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -19,5 +22,8 @@ export const routes: Routes = [
     { path: 'sell/addProduct', component: AddProductComponent },
     { path: 'sell/description', component: DescriptionComponent },
     { path: 'sell/categories', component: CategoriesComponent },
+    { path: 'sell/photos', component: PhotosComponent },
+    { path: 'sell/delivery', component: DeliveryComponent },
+    { path: 'sell/userProducts', component: YourProductsComponent },
 ];
 

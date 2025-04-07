@@ -9,7 +9,7 @@ import { FooterComponent } from '../footer/footer.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  days: number = 7;
+  days: number = 6;
   hours: number = 23;
   minutes: number = 6;
   seconds: number = 58;
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
   // Function to reset the countdown to initial values
   resetCountdown() {
-    this.days = 7;
+    this.days = 6;
     this.hours = 23;
     this.minutes = 6;
     this.seconds = 58;

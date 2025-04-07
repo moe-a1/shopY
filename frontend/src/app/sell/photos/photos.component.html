@@ -1,0 +1,117 @@
+<app-nav></app-nav>
+<div class="bg-[#F0F0F0]">
+  <div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
+    <i data-lucide="home" class="w-5 h-5"></i>
+    <span class="text-sm pt-5">Sell > </span>
+    <span class="text-sm pt-5">Add Product > </span> 
+    <span class="text-sm pt-5 font-bold">Photos</span>
+</div>
+<div class="min-h-screen p-6">
+  <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
+    
+    <!-- Progress Steps -->
+    <div class="flex justify-center mb-8">
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center">
+          <div class="bg-green-600 rounded-full p-4 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <span class="ml-2 text-green-600 font-medium">Description</span>
+        </div>
+        <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+        <div class="flex items-center">
+          <div class="bg-green-600 rounded-full p-4 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <span class="ml-2 text-green-600 font-medium">Categories</span>
+        </div>
+        <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+        <div class="flex items-center">
+          <div class="bg-[#9F3247] rounded-full p-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            </svg>
+          </div>
+          <span class="ml-2 text-[#9F3247] font-medium">Photos</span>
+        </div>
+        <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
+        <div class="flex items-center opacity-50">
+          <div class="bg-gray-300 rounded-full p-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+          </div>
+          <span class="ml-2 text-gray-500">Delivery</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photos Section -->
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold mb-6">Add product photos (max 10)</h2>
+
+      <div class="grid grid-cols-5 gap-4">
+        <!-- Upload Button -->
+        <div class="relative border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-[#9F3247] transition-colors cursor-pointer">
+          <input 
+            type="file" 
+            (change)="onFileSelected($event)"
+            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            accept="image/*"
+            multiple
+          >
+          <div class="flex flex-col items-center justify-center h-full space-y-2">
+            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            <span class="text-sm text-gray-500">Upload a photo</span>
+            <span class="text-xs text-gray-400">Max size 25MB</span>
+            <span class="text-xs text-gray-400">jpg, PNG, GIF</span>
+          </div>
+        </div>
+
+        <!-- Preview Photos with Delete Overlay -->
+        <div 
+          *ngFor="let photo of photos"
+          class="relative border rounded-lg overflow-hidden"
+        >
+          <!-- Image -->
+          <img [src]="photo.url" [alt]="photo.name" class="w-full h-40 object-cover">
+
+          <!-- Delete Overlay -->
+          <div 
+            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
+            (click)="removePhoto(photo.id)"
+          >
+            <div class="bg-red-600 rounded-full p-2">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- File Info -->
+          <div class="p-2 bg-white">
+            <p class="text-sm truncate">{{ photo.name }}</p>
+            <p class="text-xs text-gray-500">{{ photo.size }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Button -->
+    <div class="flex justify-end">
+      <button 
+        (click)="onNext()"
+        class="bg-[#9F3247] text-white px-6 py-2 rounded-md hover:bg-[#8a2c3e] focus:outline-none focus:ring-2 focus:ring-[#9F3247] focus:ring-offset-2"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
