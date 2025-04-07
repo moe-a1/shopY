@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ParticlesService } from '../services/particles.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,5 +9,15 @@ import { RouterModule } from '@angular/router';
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
+  @ViewChild('particlesContainer') particlesContainer!: ElementRef<HTMLDivElement>;
 
+  constructor(private particlesService: ParticlesService) {}
+
+  ngAfterViewInit(): void {
+    this.particlesService.initialize(this.particlesContainer.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.particlesService.dispose();
+  }
 }
