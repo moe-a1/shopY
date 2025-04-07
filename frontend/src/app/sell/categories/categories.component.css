@@ -1,9 +1,7 @@
-/* Add this CSS to your categories.component.css file */
 input[type="checkbox"] {
     accent-color: #9F3247;
   }
   
-  /* This custom CSS helps override browser defaults */
   input[type="checkbox"]:checked {
     background-color: #9F3247;
     border-color: #9F3247;
