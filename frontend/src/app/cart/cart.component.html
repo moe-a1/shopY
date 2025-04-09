@@ -1,0 +1,137 @@
+<app-nav></app-nav>
+
+<div class="container mx-auto px-4 py-6">
+  <h1 class="text-2xl font-bold text-[#7B2334] mb-6">Shopping Cart</h1>
+  
+  <!-- Cart content -->
+  <div class="flex flex-col lg:flex-row gap-6">
+    <!-- Cart items -->
+    <div class="flex-1">
+      <!-- Empty cart message (show if cart is empty) -->
+      <div *ngIf="cartItems.length === 0" class="bg-white rounded-lg shadow-md p-8 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <h2 class="text-xl font-semibold mb-2">Your cart is empty</h2>
+        <p class="text-gray-500 mb-6">Looks like you haven't added any items to your cart yet.</p>
+        <a routerLink="/products">        
+            <button class="bg-[#7B2334] text-white px-6 py-2 rounded-md hover:bg-[#631b29] transition-colors">
+            Continue Shopping
+            </button>
+        </a>
+
+      </div>
+      
+      <!-- Cart items list -->
+      <div *ngIf="cartItems.length > 0" class="bg-white rounded-lg shadow-md overflow-hidden">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b">
+            <tr>
+              <th class="text-left py-4 px-6">Product</th>
+              <th class="text-center py-4 px-2">Quantity</th>
+              <th class="text-right py-4 px-6">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cartItems" class="border-b last:border-b-0">
+              <td class="py-4 px-6">
+                <div class="flex items-center space-x-4">
+                  <img [src]="item.image" [alt]="item.name" class="w-20 h-20 object-cover rounded-md">
+                  <div>
+                    <h3 class="font-semibold">{{item.name}}</h3>
+                    <p class="text-sm text-gray-500">Seller: {{item.seller}}</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-2">
+                <div class="flex items-center justify-center">
+                  <button class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-l-md border border-gray-300" (click)="decreaseQuantity(item)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                    </svg>
+                  </button>
+                  <input type="text" class="w-10 h-8 text-center border-t border-b border-gray-300" [(ngModel)]="item.quantity">
+                  <button class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-r-md border border-gray-300" (click)="increaseQuantity(item)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6 text-right">
+                <div class="flex flex-col items-end">
+                  <span class="text-[#7B2334] font-bold">{{item.price * item.quantity}} E.P</span>
+                  <button class="text-sm flex items-center text-gray-500 hover:text-[#7B2334] transition-colors mt-2 group" (click)="removeItem(item)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 group-hover:text-[#7B2334]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Remove
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Order summary -->
+    <div class="w-full lg:w-80 h-fit">
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="font-semibold text-lg mb-4">Order Summary</h2>
+        
+        <div class="space-y-3 mb-6">
+          <div class="flex justify-between">
+            <span class="text-gray-600">Subtotal</span>
+            <span>{{calculateSubtotal()}} E.P</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Shipping</span>
+            <span>{{shippingCost}} E.P</span>
+          </div>
+          <div *ngIf="discount > 0" class="flex justify-between text-green-600">
+            <span>Discount</span>
+            <span>-{{discount}} E.P</span>
+          </div>
+          <div class="border-t pt-3 mt-3">
+            <div class="flex justify-between font-semibold">
+              <span>Total</span>
+              <span class="text-[#7B2334]">{{calculateTotal()}} E.P</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Promo code input -->
+        <div class="mb-6">
+          <label for="promo" class="block text-sm font-medium text-gray-700 mb-1">Promo Code</label>
+          <div class="flex space-x-2">
+            <input 
+              type="text" 
+              id="promo" 
+              class="flex-1 border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#7B2334]" 
+              placeholder="Enter code"
+              [(ngModel)]="promoCode"
+            >
+            <button 
+              class="bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm hover:bg-gray-300 transition-colors"
+              (click)="applyPromoCode()"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+        
+        <!-- Checkout button -->
+        <button 
+          class="w-full bg-[#7B2334] text-white py-3 rounded-md hover:bg-[#631b29] transition-colors"
+          [disabled]="cartItems.length === 0"
+          (click)="proceedToCheckout()"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

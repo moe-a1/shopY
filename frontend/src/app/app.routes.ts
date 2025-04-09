@@ -11,6 +11,8 @@ import { CategoriesComponent } from './sell/categories/categories.component';
 import { PhotosComponent } from './sell/photos/photos.component';
 import { DeliveryComponent } from './sell/delivery/delivery.component';
 import { YourProductsComponent } from './sell/your-products/your-products.component';
+import { ProductsComponent } from './products/products.component';
+import { CartComponent } from './cart/cart.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -25,5 +27,7 @@ export const routes: Routes = [
     { path: 'sell/photos', component: PhotosComponent },
     { path: 'sell/delivery', component: DeliveryComponent },
     { path: 'sell/userProducts', component: YourProductsComponent },
+    { path: 'products', component: ProductsComponent },
+    { path: 'cart', component: CartComponent },
 ];
 
