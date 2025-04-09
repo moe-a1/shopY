@@ -37,18 +37,18 @@ export class CartComponent implements OnInit {
     this.cartItems = [
       {
         id: 1,
-        name: 'PlayStation 4',
-        price: 3000,
+        name: 'Head Phone',
+        price: 950,
         seller: 'John Doe',
         image: 'images/Frame 33.png',
         quantity: 1
       },
       {
         id: 3,
-        name: 'Shaving Machine',
-        price: 950,
+        name: 'Rolex Watch',
+        price: 1000,
         seller: 'Mike Johnson',
-        image: 'https://example.com/shaver.jpg',
+        image: 'images/Frame 905.png',
         quantity: 2
       }
     ];
