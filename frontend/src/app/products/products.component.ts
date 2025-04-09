@@ -24,50 +24,50 @@ export class ProductsComponent {
     {
       id: 1,
       name: 'Rolex watch',
-      price: 3000,
+      price: 1000,
       bids: 11,
       seller: 'John Doe',
       image: '/images/Frame 905.png'
     },
     {
       id: 2,
-      name: 'Toothbrush',
-      price: 200,
+      name: 'BYOMA',
+      price: 300,
       bids: 2,
       seller: 'Jane Smith',
-      image: '/images/Frame 905.png'
+      image: '/images/Frame 32.png'
     },
     {
       id: 3,
-      name: 'Shaving Machine',
+      name: 'Head Phone',
       price: 950,
       bids: 7,
       seller: 'Mike Johnson',
-      image: '/images/Frame 905.png'
+      image: '/images/Frame 33.png'
     },
     {
       id: 4,
-      name: 'Gaming Laptop',
-      price: 6500,
+      name: 'Sunglasses',
+      price: 500,
       bids: 5,
       seller: 'Alice Carter',
-      image: '/images/Frame 905.png'
+      image: '/images/Frame 34.png'
     },
     {
       id: 5,
-      name: 'Bluetooth Speaker',
+      name: 'Watch',
       price: 750,
       bids: 9,
       seller: 'David Lee',
-      image: '/images/Frame 905.png'
+      image: '/images/Frame 38.png'
     },
     {
       id: 6,
-      name: 'Smart Watch',
+      name: 'shoes',
       price: 1200,
       bids: 4,
       seller: 'Emma Watson',
-      image: '/images/Frame 905.png'
+      image: '/images/Frame 908.png'
     }
   ]
   ;
