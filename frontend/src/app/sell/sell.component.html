@@ -1,198 +1,46 @@
-
 <app-nav />
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Information</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Started Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-</head>
-<body class="font-inter">
-
-    <div class="bg-[#F9FAFB]">
-  <div class="max-w-7xl mx-auto ">
-    <br>
-    <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-8">
-      
-      <span>Sell</span>
-      <span>›</span>
-      <span class="font-bold">Profile</span>
-    </nav>
-
-    <div class="bg-white rounded-lg shadow-sm p-8 max-w-7xl ">
-      <h1 class="text-2xl font-semibold text-[#7B2334] mb-8">Profile Information</h1>
-
-    <form id="profileForm" class="space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-        </div>
-        <div>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="font-inter">
+    <div class=" bg-gray-50 flex flex-col">
+      <div class="bg-[#F0F0F0]"><div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
+          <i data-lucide="home" class="w-5 h-5"></i>
+          <span class="text-sm pt-5 "><a href="Acc.html">Sell</a>  > </span>
+          <span class="text-sm pt-5 font-bold">Dashboard</span>
+      </div>
+      <div class="flex-1 p-8">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white shadow sm:rounded-lg p-16">
+            <div class="flex flex-col items-center space-y-8 text-center">
+              <h2 class="text-4xl font-bold text-[#7B2334]">
+                Get Started
+              </h2>
+              <p class=" text-xl">
+                Add your first product to sell 
+              </p>
+              <div class="mt-6 flex justify-end">
+                <a 
+                routerLink="/sell/description"
+                  class="px-6 py-2 bg-[#7B2334] text-white rounded-full  inline-block px-8 py-3"
+                  id="next-button" 
+                >
+                  Next
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div>
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone"
-          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-        >
-      </div>
-
-      <!-- SIDE BY SIDE UPLOADS -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- ID Front -->
-        <div class="space-y-2">
-          <label class="block text-sm text-gray-600">ID Card front</label>
-          <label class="block border-2 border-dashed border-gray-300 rounded-md p-8 text-center hover:border-primary transition-colors cursor-pointer">
-            <input type="file" accept="image/*" (change)="onFileSelected($event, 'front')" hidden>
-            <div class="flex flex-col items-center">
-              <i class="fa-solid fa-upload fa-xl" style="color: #7b2334;"></i><br>
-              <span class="text-sm text-primary">Upload picture</span>
-              <div *ngIf="frontPreview" class="mt-2">
-                <img [src]="frontPreview" alt="Front ID Preview" class="w-48 h-auto rounded-md mx-auto">
-              </div>
-            </div>
-          </label>
-        </div>
-
-        <!-- ID Back -->
-        <div class="space-y-2">
-          <label class="block text-sm text-gray-600">ID Card back</label>
-          <label class="block border-2 border-dashed border-gray-300 rounded-md p-8 text-center hover:border-primary transition-colors cursor-pointer">
-            <input type="file" accept="image/*" (change)="onFileSelected($event, 'back')" hidden>
-            <div class="flex flex-col items-center">
-              <i class="fa-solid fa-upload fa-xl" style="color: #7b2334;"></i><br>
-              <span class="text-sm text-primary">Upload picture</span>
-              <div *ngIf="backPreview" class="mt-2">
-                <img [src]="backPreview" alt="Back ID Preview" class="w-48 h-auto rounded-md mx-auto">
-              </div>
-            </div>
-          </label>
-        </div>
-      </div>
-    </form>
-      <br>
-      <h1 class="text-2xl font-semibold text-[#7B2334] mb-6">Address Information</h1>
-          
-          <form class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <select class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none">
-                  <option value=""> City</option>
-                  <option value="city1">Giza</option>
-                  <option value="city2">Cairo</option>
-                  <option value="city3">Alex</option>
-                  <option value="city4">Sohag</option>
-                </select>
-              </div>
-
-              <div>
-                <select class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none">
-                  <option value=""> State</option>
-                  <option value="state1">6 October</option>
-                  <option value="state2">Faysal</option>
-                  <option value="state3">Bolak</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <select class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none">
-                <option value=""> Area</option>
-                <option value="area1">EL Hosry</option>
-                <option value="area2">5th Street</option>
-              </select>
-            </div>
-
-            <div>
-              <textarea 
-                class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none h-24 resize-none"
-                placeholder="Enter complete address here"
-              ></textarea>
-            </div>
-<br>
-<h1 class="text-2xl font-semibold text-[#7B2334] mb-6">Account Information</h1>
-          
-<form class="space-y-4">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <input 
-        type="text" 
-        placeholder="Your Name"
-        class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none"
-      />
     </div>
-
-    <div>
-      <input 
-        type="text" 
-        placeholder="IBAN"
-        class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none"
-      />
     </div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <select class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none">
-        <option value="">Bank</option>
-        <option value="bank1">CIB</option>
-        <option value="bank2">Bank Misr</option>
-        <option value="bank3">Bank el Ahly</option>
-      </select>
-    </div>
-
-    <div>
-      <input 
-        type="text" 
-        placeholder="Account Number"
-        class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none"
-      />
-    </div>
-  </div>
-
-  <div>
-    <input 
-      type="text" 
-      placeholder="Branch code"
-      class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#B1454A] focus:border-[#B1454A] outline-none"
-    />
-  </div> 
-  <div class="mt-6 flex justify-end">
-    <a 
-    routerLink="/sell/addProduct"
-      class="px-6 py-2 bg-[#7B2334] text-white rounded-full hover:bg-red-400 transition-colors inline-block"
-      id="next-button"
-    >
-      Next
-    </a>
-  </div>
-
-</form>
-          </form>
-    </div>
-  </div>
-</div>
-</body>
+  </body>
 </html>
-<app-footer></app-footer>
-
-
+<app-footer />

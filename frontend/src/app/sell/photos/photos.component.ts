@@ -3,7 +3,7 @@ import { NavComponent } from '../../nav/nav.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface Photo {
   id: string;
@@ -14,7 +14,7 @@ interface Photo {
 
 @Component({
   selector: 'app-photos',
-  imports: [NavComponent, FooterComponent, FormsModule, CommonModule],
+  imports: [NavComponent, FooterComponent, FormsModule, CommonModule,RouterLink],
   templateUrl: './photos.component.html',
   styleUrl: './photos.component.css'
 })

@@ -182,12 +182,12 @@
     right: -100px;
   }
   
-  .circle3 {
+  /* .circle3 {
     width: 150px;
     height: 150px;
     top: 50%;
     right: 10%;
-  }
+  } */
   
   /* Mobile adjustments */
   @media (max-width: 768px) {

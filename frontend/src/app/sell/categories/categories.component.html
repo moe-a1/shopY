@@ -1,4 +1,14 @@
-<app-nav></app-nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Categories</title>
+</head>
+<body>
+  <app-nav></app-nav>
 <div class="bg-[#F0F0F0]">
   <div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
     <i data-lucide="home" class="w-5 h-5"></i>
@@ -6,7 +16,7 @@
     <span class="text-sm pt-5">Add Product > </span> 
     <span class="text-sm pt-5 font-bold">Categories</span>
 </div>
-  <div class="min-h-screen p-6">
+  <div class=" p-6">
     <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
       <!-- Progress Steps -->
       <div class="flex justify-center mb-8">
@@ -38,14 +48,6 @@
             <span class="ml-2 text-gray-500">Photos</span>
           </div>
           <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
-          <div class="flex items-center opacity-50">
-            <div class="bg-gray-300 rounded-full p-4">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-              </svg>
-            </div>
-            <span class="ml-2 text-gray-500">Delivery</span>
-          </div>
         </div>
       </div>
 
@@ -56,31 +58,6 @@
         <div class="border border-gray-200 rounded-lg">
           <!-- Main Categories List + Product Categories Grid -->
           <div class="grid grid-cols-12 gap-0">
-            <!-- Main Categories Sidebar -->
-            <div class="col-span-3 border-r border-gray-200">
-              <div class="p-4">
-                <div class="space-y-2">
-                  <button 
-                    *ngFor="let category of categories"
-                    (click)="toggleCategory(category)"
-                    class="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-md flex items-center justify-between"
-                    [class.font-medium]="category.expanded"
-                  >
-                    {{ category.name }}
-                    <svg 
-                      class="w-4 h-4 text-gray-500"
-                      [class.transform]="category.expanded"
-                      [class.rotate-90]="category.expanded"
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
 
             <!-- Products Categories Grid -->
             <div class="col-span-9 p-4">
@@ -129,12 +106,20 @@
                       >
                       <span>Cases and covers</span>
                     </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Headphones']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Headphones</span>
+                    </label>
                   </div>
                 </div>
 
                 <!-- Computers -->
                 <div class="space-y-4">
-                  <h3 class="font-medium">Computers</h3>
+                  <h3 class="font-medium">Computers and TVs</h3>
                   <div class="space-y-2">
                     <label class="flex items-center space-x-2">
                       <input 
@@ -147,45 +132,6 @@
                     <label class="flex items-center space-x-2">
                       <input 
                         type="checkbox" 
-                        [(ngModel)]="selectedCategories['Laptop components']"
-                        class="accent-[#9F3247] h-4 w-4 rounded"
-                      >
-                      <span>Laptop components</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                      <input 
-                        type="checkbox"
-                        [(ngModel)]="selectedCategories['Desktop Computers']"
-                        class="accent-[#9F3247] h-4 w-4 rounded"
-                      >
-                      <span>Desktop Computers</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                      <input 
-                        type="checkbox"
-                        [(ngModel)]="selectedCategories['Computer components']"
-                        class="accent-[#9F3247] h-4 w-4 rounded"
-                      >
-                      <span>Computer components</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                      <input 
-                        type="checkbox"
-                        [(ngModel)]="selectedCategories['Printers and scanners']"
-                        class="accent-[#9F3247] h-4 w-4 rounded"
-                      >
-                      <span>Printers and scanners</span>
-                    </label>
-                  </div>
-                </div>
-
-                <!-- TVs and accessories -->
-                <div class="space-y-4">
-                  <h3 class="font-medium">TVs and accessories</h3>
-                  <div class="space-y-2">
-                    <label class="flex items-center space-x-2">
-                      <input 
-                        type="checkbox"
                         [(ngModel)]="selectedCategories['TVs']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
@@ -197,27 +143,28 @@
                         [(ngModel)]="selectedCategories['Projectors']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Projectors</span>
+                      <span>
+                        Projectors</span>
                     </label>
                     <label class="flex items-center space-x-2">
                       <input 
                         type="checkbox"
-                        [(ngModel)]="selectedCategories['Headphones']"
+                        [(ngModel)]="selectedCategories['Computer']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Headphones</span>
+                      <span>Computer</span>
                     </label>
                     <label class="flex items-center space-x-2">
                       <input 
                         type="checkbox"
-                        [(ngModel)]="selectedCategories['Audio for home']"
+                        [(ngModel)]="selectedCategories['Printers and scanners']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Audio for home</span>
+                      <span>Printers and scanners</span>
                     </label>
                     <label class="flex items-center space-x-2">
                       <input 
-                        type="checkbox"
+                        type="checkbox" 
                         [(ngModel)]="selectedCategories['Home cinema']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
@@ -225,50 +172,335 @@
                     </label>
                   </div>
                 </div>
-
-                <!-- Consoles and slot machines -->
+                <!-- Fashion -->
                 <div class="space-y-4">
-                  <h3 class="font-medium">Consoles and slot machines</h3>
+                  <h3 class="font-medium"> Fashion</h3>
                   <div class="space-y-2">
                     <label class="flex items-center space-x-2">
                       <input 
-                        type="checkbox"
-                        [(ngModel)]="selectedCategories['Console PlayStation 5']"
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Men']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Console PlayStation 5</span>
+                      <span>Men</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Women']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Women</span>
                     </label>
                     <label class="flex items-center space-x-2">
                       <input 
                         type="checkbox"
-                        [(ngModel)]="selectedCategories['Console Xbox Series X/S']"
+                        [(ngModel)]="selectedCategories['Kids']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Console Xbox Series X/S</span>
+                      <span>
+                        Kids</span>
                     </label>
                     <label class="flex items-center space-x-2">
                       <input 
                         type="checkbox"
-                        [(ngModel)]="selectedCategories['Console PlayStation 4']"
+                        [(ngModel)]="selectedCategories['Fashion Accessories']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Console PlayStation 4</span>
+                      <span>Fashion Accessories</span>
                     </label>
                     <label class="flex items-center space-x-2">
                       <input 
                         type="checkbox"
-                        [(ngModel)]="selectedCategories['Console Xbox One']"
+                        [(ngModel)]="selectedCategories['Festival Specials']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Console Xbox One</span>
+                      <span>Festival Specials</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Sunglasses']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Sunglasses</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Home & Garden -->
+                <div class="space-y-4">
+                  <h3 class="font-medium"> Home & Garden</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Furniture']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Furniture</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Home Decor']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Home Decor</span>
                     </label>
                     <label class="flex items-center space-x-2">
                       <input 
                         type="checkbox"
-                        [(ngModel)]="selectedCategories['Console Nintendo Switch']"
+                        [(ngModel)]="selectedCategories['Home Improvement']"
                         class="accent-[#9F3247] h-4 w-4 rounded"
                       >
-                      <span>Console Nintendo Switch</span>
+                      <span>
+                        Home Improvement</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Garden & Outdoor']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Garden & Outdoor</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Plants & Seeds']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Plants & Seeds</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Smart Home']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Smart Home </span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Beauty -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">Beauty</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Skincare']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Skincare</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Makeup']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Makeup</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Haircare']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>
+                        Haircare</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Bath & Body']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Bath & Body</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Fragrances']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Fragrances</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Natural & Organic']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Natural & Organic </span>
+                    </label>
+                  </div>
+                </div>
+                <!-- Automotive -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">Automotive</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Vehicle Parts']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Vehicle Parts</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Vehicle Accessories']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Vehicle Accessories</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Car Electronics']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>
+                        Car Electronics</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Motorcycle Gear']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Motorcycle Gear</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Tires & Wheels']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Tires & Wheels</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Oils & Fluids']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Oils & Fluids </span>
+                    </label>
+                  </div>
+                </div>
+                <!-- Sports  -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">Sports </h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['ActiveWear']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>ActiveWear</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['FootWear']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>FootWear</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Gym Equipment']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>
+                        Gym Equipment</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Adventure Sports']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Adventure Sports</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Racquet Sports']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Racquet Sports</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Sports Nutrition ']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Sports Nutrition </span>
+                    </label>
+                  </div>
+                </div>
+                <!-- Culture -->
+                <div class="space-y-4">
+                  <h3 class="font-medium">Culture </h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Folk Art']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Folk Art</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Clothing']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Clothing</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Instruments']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>
+                        Instruments</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Books']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Books</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox"
+                        [(ngModel)]="selectedCategories['Artifacts']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Artifacts</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                      <input 
+                        type="checkbox" 
+                        [(ngModel)]="selectedCategories['Music']"
+                        class="accent-[#9F3247] h-4 w-4 rounded"
+                      >
+                      <span>Music</span>
                     </label>
                   </div>
                 </div>
@@ -312,3 +544,6 @@
   </div>
 </div>
 <app-footer></app-footer>
+</body>
+</html>
+
