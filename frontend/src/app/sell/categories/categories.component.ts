@@ -104,7 +104,23 @@ export class CategoriesComponent {
   }
 
   onNext() {
-    console.log('Selected categories:', this.getSelectedCategoriesArray());
-    this.router.navigate(['/sell/photos']); 
+    // Retrieve product data from localStorage
+    const productData = JSON.parse(localStorage.getItem('productData') || '{}');
+  
+    // Add the first selected category to the product data
+    const selectedCategories = this.getSelectedCategoriesArray();
+    if (selectedCategories.length > 0) {
+      productData.category = selectedCategories;
+    } else {
+      console.error('No category selected');
+      return;
+    }
+  
+    // Save updated product data back to localStorage
+    localStorage.setItem('productData', JSON.stringify(productData));
+    console.log(productData);
+  
+    // Navigate to the next step
+    this.router.navigate(['/sell/photos']);
   }
 }

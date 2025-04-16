@@ -24,16 +24,16 @@
                 Get Started
               </h2>
               <p class=" text-xl">
-                Add your first product to sell 
+                Add a product to sell 
               </p>
-              <div class="mt-6 flex justify-end">
-                <a 
-                routerLink="/sell/description"
-                  class="px-6 py-2 bg-[#7B2334] text-white rounded-full  inline-block px-8 py-3"
-                  id="next-button" 
+              <div class="mt-6 flex justify-end space-x-4">
+                <button 
+                  (click)="navigateTo('/sell/description')"
+                  class="px-6 py-3 bg-[#7B2334] text-white rounded-full shadow-md hover:bg-[#5a1926] transition-all duration-300 transform hover:scale-105"
+                  id="next-button"
                 >
                   Next
-                </a>
+                </button>
               </div>
             </div>
           </div>
