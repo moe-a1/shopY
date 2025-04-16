@@ -3,95 +3,78 @@ import { NavComponent } from '../nav/nav.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  bids: number;
-  seller: string;
-  image: string;
-}
+
+
 
 @Component({
   selector: 'app-products',
-  imports: [NavComponent, FooterComponent, CommonModule, FormsModule],
+  imports: [NavComponent, FooterComponent, CommonModule, FormsModule, HttpClientModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Rolex watch',
-      price: 1000,
-      bids: 11,
-      seller: 'John Doe',
-      image: '/images/Frame 905.png'
-    },
-    {
-      id: 2,
-      name: 'BYOMA',
-      price: 300,
-      bids: 2,
-      seller: 'Jane Smith',
-      image: '/images/Frame 32.png'
-    },
-    {
-      id: 3,
-      name: 'Head Phone',
-      price: 950,
-      bids: 7,
-      seller: 'Mike Johnson',
-      image: '/images/Frame 33.png'
-    },
-    {
-      id: 4,
-      name: 'Sunglasses',
-      price: 500,
-      bids: 5,
-      seller: 'Alice Carter',
-      image: '/images/Frame 34.png'
-    },
-    {
-      id: 5,
-      name: 'Watch',
-      price: 750,
-      bids: 9,
-      seller: 'David Lee',
-      image: '/images/Frame 38.png'
-    },
-    {
-      id: 6,
-      name: 'shoes',
-      price: 1200,
-      bids: 4,
-      seller: 'Emma Watson',
-      image: '/images/Frame 908.png'
-    }
-  ]
-  ;
-
-  // Filter properties
-  minPrice: number = 200;
-  maxPrice: number = 4000;
-  currentPriceRange: number = 200;
-  
-  // Sort properties
+  products: any[] = []; // Array to store products
+  minPrice: number = 0; // Minimum price for filtering
+  maxPrice: number = 0; // Maximum price for filtering
+  currentPriceRange: number = 0; // Current price range for filtering
   sortOptions: string[] = ['Most Popular', 'Price: Low to High', 'Price: High to Low', 'Newest First'];
   selectedSort: string = 'Most Popular';
-  
-  // Filter methods
-  applyFilter(): void {
-    // Filter logic would go here
-    console.log('Filtering with price range:', this.currentPriceRange);
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.fetchProducts();
+    this.fetchPriceRange();
   }
-  
-  // Sort methods
+
+  // Fetch all products from the backend
+  fetchProducts(): void {
+    this.http.get('http://localhost:5000/api/products/').subscribe(
+      (data: any) => {
+        this.products = data;
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+  }
+
+  // Fetch the price range from the backend
+  fetchPriceRange(): void {
+    this.http.get('http://localhost:5000/api/products/getPriceRange').subscribe(
+      (data: any) => {
+        this.minPrice = data.minPrice;
+        this.maxPrice = data.maxPrice;
+        this.currentPriceRange = this.maxPrice; // Default to max price
+      },
+      (error) => {
+        console.error('Error fetching price range:', error);
+      }
+    );
+  }
+
+  // Apply filter based on the current price range
+  applyFilter(): void {
+    this.http
+      .get(`http://localhost:5000/api/products/filterByPrice?minPrice=${this.minPrice}&maxPrice=${this.currentPriceRange}`)
+      .subscribe(
+        (data: any) => {
+          this.products = data;
+        },
+        (error) => {
+          console.error('Error applying filter:', error);
+        }
+      );
+  }
+
+  // Sort products based on the selected option
   sortProducts(option: string): void {
     this.selectedSort = option;
-    
-    switch(option) {
+
+    switch (option) {
       case 'Price: Low to High':
         this.products.sort((a, b) => a.price - b.price);
         break;
@@ -100,6 +83,9 @@ export class ProductsComponent {
         break;
       case 'Most Popular':
         this.products.sort((a, b) => b.bids - a.bids);
+        break;
+      case 'Newest First':
+        this.products.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         break;
     }
   }

@@ -1,7 +1,9 @@
 <div *ngIf="!isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
   Sign up and get or sell your first order.
   <a routerLink="/signup" class="underline">Sign Up Now</a>
-  <button class="float-right mr-4">&times;</button>
+</div>
+<div *ngIf="isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
+  Welcome back, {{ username }}! Ready to explore or sell more products?
 </div>
 <header class="bg-white shadow-sm">
     <nav class="container mx-auto px-4 py-4">
