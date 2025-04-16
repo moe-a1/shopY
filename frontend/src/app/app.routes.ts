@@ -12,6 +12,7 @@ import { YourProductsComponent } from './sell/your-products/your-products.compon
 import { ProductsComponent } from './products/products.component';
 import { CartComponent } from './cart/cart.component';
 import { CategoryComponent } from './category/category.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -27,5 +28,6 @@ export const routes: Routes = [
     { path: 'products', component: ProductsComponent },
     { path: 'cart', component: CartComponent },
     { path: 'category/:categoryName', component: CategoryComponent },
+    { path: 'settings', component: SettingsComponent },
 ];
 
