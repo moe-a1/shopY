@@ -40,4 +40,20 @@ export class YourProductsComponent implements OnInit {
   addProduct() {
     this.router.navigate(['/sell/description']);
   }
+  
+  deleteProduct(productId: string) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      const token = localStorage.getItem('accessToken');
+      const headers = { token: `Bearer ${token}` };
+      
+      this.http.delete(`http://localhost:5000/api/products/${productId}`, { headers }).subscribe(
+        (response) => {
+          this.products = this.products.filter(product => product._id !== productId);
+        },
+        (error) => {
+          console.error('Error deleting product:', error);
+        }
+      );
+    }
+  }
 }
