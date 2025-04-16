@@ -18,10 +18,16 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   error: string = '';
+  success: string = '';
+  showAlert: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onLogin() {
+    this.error = '';
+    this.success = '';
+    this.showAlert = true;
+    
     const payload = {
       email: this.email,
       password: this.password
@@ -29,10 +35,12 @@ export class LoginComponent {
 
     this.http.post<any>('http://localhost:5000/api/auth/login', payload).subscribe({
       next: (res) => {
-        // Save token and user info to localStorage or sessionStorage
+        this.success = 'Login successful! Redirecting...';
         localStorage.setItem('accessToken', res.accessToken);
         localStorage.setItem('user', JSON.stringify(res));
-        this.router.navigate(['/home']); // redirect after login
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 1500);
       },
       error: (err) => {
         if (err.status === 404 || err.status === 400) {
@@ -40,6 +48,9 @@ export class LoginComponent {
         } else {
           this.error = 'An unexpected error occurred. Please try again later.';
         }
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 5000);
       }
     });
   }
