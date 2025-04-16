@@ -1,6 +1,7 @@
-<div class="bg-[#7B2334] text-white text-center py-2 text-sm">
-    Sign up and get or sell your first order. <a routerLink="/signup" class="underline">Sign Up Now</a>
-    <button class="float-right mr-4">&times;</button>
+<div *ngIf="!isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
+  Sign up and get or sell your first order.
+  <a routerLink="/signup" class="underline">Sign Up Now</a>
+  <button class="float-right mr-4">&times;</button>
 </div>
 <header class="bg-white shadow-sm">
     <nav class="container mx-auto px-4 py-4">
@@ -28,7 +29,34 @@
     
               <div class="flex gap-4 text-xl">
                 <a routerLink="/cart"><span role="img" aria-label="Cart">🛒</span></a>
-                <a routerLink="/login"><span role="img" aria-label="User">👤</span></a>
+                <div class="relative" *ngIf="isLoggedIn">
+                  <button (click)="toggleDropdown()" class="flex items-center gap-2 focus:outline-none">
+                    <span role="img" aria-label="User">👤</span>
+                  </button>
+                  <div
+                    *ngIf="dropdownOpen"
+                    class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+                  >
+                    <!-- Username Section -->
+                    <div class="px-4 py-3 border-b border-gray-200 bg-gray-50">
+                      <p class="text-sm font-semibold text-gray-700">{{ username }}</p>
+                    </div>
+                    <!-- Dropdown Options -->
+                    <a
+                      routerLink="/settings"
+                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      <i class="fas fa-cog mr-2 text-gray-500"></i> Settings
+                    </a>
+                    <button
+                      (click)="logout()"
+                      class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
+                    </button>
+                  </div>
+                </div>
+                <a *ngIf="!isLoggedIn" routerLink="/login"><span role="img" aria-label="User">👤</span></a>
               </div>
             </div>
     
