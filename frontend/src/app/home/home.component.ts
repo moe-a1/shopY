@@ -3,10 +3,25 @@ import { NavComponent } from '../nav/nav.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+interface Product {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+  category: any[];
+  quantity: number;
+  seller: {
+    _id: string;
+    username: string;
+  };
+}
 
 @Component({
   selector: 'app-home',
-  imports: [NavComponent, FooterComponent, RouterModule],
+  imports: [NavComponent, FooterComponent, RouterModule, CommonModule, HttpClientModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -15,12 +30,29 @@ export class HomeComponent implements OnInit {
   hours: number = 23;
   minutes: number = 6;
   seconds: number = 58;
+  products: Product[] = [];
 
   // The interval to update the countdown every second
   private interval: any;
 
+  constructor(private http: HttpClient) {}
+
   ngOnInit(): void {
     this.startCountdown();
+    this.fetchRandomProducts();
+  }
+
+  // Function to fetch random products from the backend
+  fetchRandomProducts(): void {
+    this.http.get<Product[]>('http://localhost:5000/api/products/random/8').subscribe(
+      (data) => {
+        this.products = data;
+        console.log('Fetched products:', this.products);
+      },
+      (error) => {
+        console.error('Error fetching random products:', error);
+      }
+    );
   }
 
   // Function to start the countdown
