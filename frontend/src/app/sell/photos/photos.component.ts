@@ -4,6 +4,7 @@ import { FooterComponent } from '../../footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 interface Photo {
   id: string;
@@ -14,12 +15,12 @@ interface Photo {
 
 @Component({
   selector: 'app-photos',
-  imports: [NavComponent, FooterComponent, FormsModule, CommonModule,RouterLink],
+  imports: [NavComponent, FooterComponent, FormsModule, CommonModule, RouterLink, HttpClientModule], // Add HttpClientModule here
   templateUrl: './photos.component.html',
   styleUrl: './photos.component.css'
 })
 export class PhotosComponent {
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
   
   photos: Photo[] = [];
 
@@ -56,7 +57,31 @@ export class PhotosComponent {
   }
 
   onNext() {
-    console.log('Photos:', this.photos);
-    this.router.navigate(['/sell/delivery']); 
+    // Retrieve product data from localStorage
+    const productData = JSON.parse(localStorage.getItem('productData') || '{}');
+  
+    // Add photos to the product data
+    productData.images = this.photos.map(photo => photo.url);
+  
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('accessToken');
+  
+    // Send the complete product data to the backend with the token in the headers
+    console.log('Sending product:', productData);
+
+    this.http.post('http://localhost:5000/api/products/', productData, {
+      headers: {
+        token: `Bearer ${token}` // Include the token in the Authorization header
+      }
+    }).subscribe({
+      next: (response) => {
+        console.log('Product created successfully:', response);
+        localStorage.removeItem('productData'); // Clear localStorage
+        this.router.navigate(['/sell/userProducts']); // Navigate to the user products page
+      },
+      error: (error) => {
+        console.error('Error creating product:', error);
+      }
+    });
   }
 }

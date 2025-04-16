@@ -108,14 +108,13 @@
 
     <!-- Next Button -->
     <div class="mt-6 flex justify-end">
-      <a 
-      routerLink="/sell/userProducts"
-        class="px-6 py-2 bg-[#7B2334] text-white rounded-full  inline-block px-8 py-3"
-        id="next-button" 
+      <button 
+        (click)="onNext()"
+        class="px-6 py-2 bg-[#7B2334] text-white rounded-full inline-block px-8 py-3"
+        id="submit-button"
       >
-        Next
-      </a>
-
+        Submit
+      </button>
     </div>
   </div>
 </div>

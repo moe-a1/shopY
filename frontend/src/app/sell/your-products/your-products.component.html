@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UserProduct</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <app-nav></app-nav>
-<div class="bg-[#F0F0F0]">
+  <div class="bg-[#F0F0F0]">
     <div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
-        <i data-lucide="home" class="w-5 h-5"></i>
-        <span class="text-sm pt-5"><a href="Acc.html">Sell</a> > </span>
-        <span class="text-sm pt-5">Add Product > </span> 
-        <span class="text-sm pt-5 font-bold">Products</span>
-      </div>
-      <br>
-<div class="container">
-    <div class="flex justify-center mb-8">
+      <i data-lucide="home" class="w-5 h-5"></i>
+      <span class="text-sm pt-5"><a href="Acc.html">Sell</a> > </span>
+      <span class="text-sm pt-5">Add Product > </span> 
+      <span class="text-sm pt-5 font-bold">Products</span>
+    </div>
+    <br>
+    <div class="container">
+      <div class="flex justify-center mb-8">
         <div class="flex items-center space-x-4">
           <div class="flex items-center">
             <div class="bg-green-600 rounded-full p-4 flex items-center justify-center">
@@ -49,15 +49,32 @@
           <div class="border-t-2 border-gray-300 flex-grow my-auto"></div>
         </div>
       </div>
-    <h2 class="title">Your Products</h2>
-  
-    <div class="products-grid">
-      <div class="add-button">
-        <button (click)="addProduct()">+</button>
-      </div>
+
+<h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Your Products</h2>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
+  <!-- Add Product Button -->
+  <div class="flex items-center justify-center border-4 border-dashed border-gray-300 rounded-lg h-60 hover:bg-gray-100 transition cursor-pointer" (click)="addProduct()">
+    <span class="text-4xl text-gray-500">+</span>
+  </div>
+
+  <!-- Product Cards -->
+  <div *ngFor="let product of products" class="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition duration-300">
+    <div class="p-4">
+      <img [src]="product.images[0]" alt="{{ product.title }}" class="w-full h-40 object-cover">
+      <h3 class="text-lg font-semibold text-gray-800 mb-1">{{ product.title }}</h3>
+      <p class="text-green-600 font-medium">Price: ${{ product.price }}</p>
+      <p class="text-gray-500 text-sm">Quantity: {{ product.quantity }}</p>
+      <!-- Delete Button -->
+      <button  class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+        Delete
+      </button>
     </div>
+  </div>
 </div>
-</div>
-<app-footer></app-footer>
+
+    </div>
+  </div>
+  <app-footer></app-footer>
 </body>
 </html>
