@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Dropdown container */
+.relative div {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Dropdown hover effects */
+a:hover, button:hover {
+  background-color: #f9f9f9;
+}
+
+/* Dropdown animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Username section styling */
+.border-b {
+  background-color: #f8f9fa;
+}
+
