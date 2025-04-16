@@ -4,6 +4,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'; 
 
 interface CartItem {
   id: number;
@@ -17,7 +18,7 @@ interface CartItem {
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [NavComponent, FooterComponent, CommonModule, FormsModule, RouterModule],
+  imports: [NavComponent, FooterComponent, CommonModule, FormsModule, RouterModule, HttpClientModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -26,56 +27,87 @@ export class CartComponent implements OnInit {
   shippingCost: number = 50;
   discount: number = 0;
   promoCode: string = '';
-  
-  constructor(private router: Router) {}
-  
+  private apiUrl = 'http://localhost:5000/api/cart'; // Replace with your backend URL
+
+  constructor(private http: HttpClient, private router: Router) {}
+
   ngOnInit(): void {
     this.loadCartItems();
   }
-  
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('accessToken'); 
+    console.log(token);
+    return new HttpHeaders({
+      token: `Bearer ${token}` 
+    });
+  }
+
   loadCartItems(): void {
-    this.cartItems = [
-      {
-        id: 1,
-        name: 'Head Phone',
-        price: 950,
-        seller: 'John Doe',
-        image: 'images/Frame 33.png',
-        quantity: 1
+    const headers = this.getAuthHeaders();
+    this.http.get<{ products: CartItem[] }>(`${this.apiUrl}/getCart`, { headers }).subscribe(
+      (response) => {
+        this.cartItems = response.products.map((item: any) => ({
+          id: item.product._id,
+          name: item.product.name,
+          price: item.product.price,
+          seller: item.product.seller, 
+          image: item.product.image,
+          quantity: item.quantity,
+        }));
       },
-      {
-        id: 3,
-        name: 'Rolex Watch',
-        price: 1000,
-        seller: 'Mike Johnson',
-        image: 'images/Frame 905.png',
-        quantity: 2
+      (error) => {
+        console.error('Error fetching cart items:', error);
       }
-    ];
+    );
   }
-  
+
   increaseQuantity(item: CartItem): void {
-    item.quantity++;
+    const headers = this.getAuthHeaders();
+    this.http.post(`${this.apiUrl}/updateCart`, { productId: item.id, quantity: 1 }, { headers }).subscribe(
+      () => {
+        item.quantity++;
+      },
+      (error) => {
+        console.error('Error increasing quantity:', error);
+      }
+    );
   }
-  
+
   decreaseQuantity(item: CartItem): void {
     if (item.quantity > 1) {
-      item.quantity--;
+      const headers = this.getAuthHeaders();
+      this.http.post(`${this.apiUrl}/updateCart`, { productId: item.id, quantity: -1 }, { headers }).subscribe(
+        () => {
+          item.quantity--;
+        },
+        (error) => {
+          console.error('Error decreasing quantity:', error);
+        }
+      );
     }
   }
-  
+
   removeItem(item: CartItem): void {
-    this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== item.id);
+    const headers = this.getAuthHeaders();
+    this.http.delete(`${this.apiUrl}/removeProduct/${item.id}`, { headers }).subscribe(
+      () => {
+        this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== item.id);
+      },
+      (error) => {
+        console.error('Error removing item:', error);
+      }
+    );
   }
-  
+
   calculateSubtotal(): number {
     return this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   }
-  
+
   calculateTotal(): number {
     return this.calculateSubtotal() + this.shippingCost - this.discount;
   }
-  
+
   applyPromoCode(): void {
     if (this.promoCode.toLowerCase() === 'discount10') {
       this.discount = Math.round(this.calculateSubtotal() * 0.1);
@@ -86,11 +118,10 @@ export class CartComponent implements OnInit {
     }
     this.promoCode = '';
   }
-  
+
   proceedToCheckout(): void {
-    // if (this.cartItems.length > 0) {
-    //   // Navigate to checkout page (you would implement this route)
-    //   this.router.navigate(['/checkout']);
-    // }
+    if (this.cartItems.length > 0) {
+      this.router.navigate(['/checkout']);
+    }
   }
 }
