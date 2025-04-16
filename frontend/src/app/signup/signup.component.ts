@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [NavComponent, FooterComponent, RouterModule, FormsModule, HttpClientModule],
+  imports: [NavComponent, FooterComponent, RouterModule, FormsModule, HttpClientModule, CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -23,23 +24,38 @@ export class SignupComponent {
     address: ''
   };
 
+  error: string = '';
+  success: string = '';
+  showAlert: boolean = false;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   register() {
+    this.error = '';
+    this.success = '';
+    this.showAlert = true;
+
     if (this.formData.password !== this.formData.confirmPassword) {
-      alert('Passwords do not match');
+      this.error = 'Passwords do not match';
+      setTimeout(() => {
+        this.showAlert = false;
+      }, 5000);
       return;
     }
 
     this.http.post('http://localhost:5000/api/auth/register', this.formData)
       .subscribe({
         next: (res) => {
-          console.log('User registered successfully:', res);
-          this.router.navigate(['/login']);
+          this.success = 'Registration successful! Redirecting to login...';
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1500);
         },
         error: (err) => {
-          console.error('Registration error:', err);
-          alert(err.error?.error || 'Registration failed');
+          this.error = err.error?.error || 'Registration failed';
+          setTimeout(() => {
+            this.showAlert = false;
+          }, 5000);
         }
       });
   }

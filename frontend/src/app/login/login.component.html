@@ -1,5 +1,17 @@
 <app-nav />
 <div class="bg-gray-50 font-inter">
+  <div *ngIf="showAlert && (error || success)" 
+       class="alert" 
+       [ngClass]="{'alert-error': error, 'alert-success': success}">
+    <div *ngIf="error" class="flex items-center">
+      <i data-lucide="alert-circle" class="w-5 h-5 mr-2"></i>
+      {{ error }}
+    </div>
+    <div *ngIf="success" class="flex items-center">
+      <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>
+      {{ success }}
+    </div>
+  </div>
   <div class="bg-[#F0F0F0]">
     <div class="max-w-7xl mx-auto flex items-center space-x-2 text-gray-600">
       <i data-lucide="home" class="w-5 h-5"></i>
@@ -61,8 +73,6 @@
                 >
                   Login
                 </button>
-              
-                <p class="text-sm text-red-600" *ngIf="error">{{ error }}</p>
               </form>              
           </div>
 
