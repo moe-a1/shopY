@@ -1,0 +1,45 @@
+/* Base styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Product cards styling */
+.grid {
+  margin-top: 1rem;
+}
+
+/* Button styling */
+button {
+  background-color: #7B2334;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #631b29;
+}
+
+/* Category title */
+h1 {
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+/* No products message */
+.text-center {
+  padding: 2rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filter-sidebar {
+    margin-bottom: 1rem;
+  }
+}
