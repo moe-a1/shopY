@@ -3,6 +3,7 @@ import { NavComponent } from '../nav/nav.component';
 import { FooterComponent } from '../footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sell',
@@ -41,5 +42,11 @@ export class SellComponent {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  constructor(private router: Router) {}
+
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
   }
 }
