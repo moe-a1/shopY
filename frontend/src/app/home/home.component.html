@@ -16,7 +16,7 @@
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="flex flex-col justify-center">
             <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">YOUR GATEWAY TO<br/>BUYING AND<br/>SELLING SAFELY.</h2>
-            <p class="text-[#9F3247] mb-8">Discover treasures at ShopY, where bidding meets buying. Find unique items to buy and sell with excitement!</p>
+            <p class="text-[#9F3247] mb-8">Discover treasures at ShopY. Find unique items to buy and sell with ease!</p>
             <div class="flex gap-4 mb-8">
               <div class="bg-black text-white rounded-full w-14 md:w-16 h-14 md:h-16 flex items-center justify-center">
                 <div>
@@ -56,162 +56,39 @@
 
       <!-- Available Items -->
       <section class="py-8 md:py-16 -mt-8 md:-mt-16">
-<h2 class="text-2xl md:text-5xl font-bold text-center mb-8 md:mb-12 text-white bg-[#7B2334] p-12">AVAILABLE ITEMS</h2>
+        <h2 class="text-2xl md:text-5xl font-bold text-center mb-8 md:mb-12 text-white bg-[#7B2334] p-12">AVAILABLE ITEMS</h2>
         <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <!-- Product Cards -->
-          <div class="product-card">
-            <a href="Product1.html">
+          <div class="product-card" *ngFor="let product of products">
+            <a [routerLink]="['/products', product._id]">
               <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
                 <img 
-                  src="images/Frame 905.png" 
-                  alt="Rolex watch" 
+                  [src]="product.images && product.images.length > 0 ? product.images[0] : 'assets/placeholder-image.jpg'" 
+                  [alt]="product.title" 
                   class="absolute inset-0 w-full h-full object-cover"
+                  onerror="this.src='assets/placeholder-image.jpg'"
                 >
               </div>
             </a>
-            <h3 class="font-bold text-[#9F3247]">Rolex watch</h3>
+            <h3 class="font-bold text-[#9F3247]">{{ product.title }}</h3>
             <div class="flex justify-between items-center mt-2">
-              <p class="font-bold text-[#9F3247]">1000 E.P</p>
+              <p class="font-bold text-[#9F3247]">{{ product.price }} E.P</p>
               <div class="flex gap-2 text-sm text-gray-500">
-                <p class="text-[#9F3247]">2 bids</p>
-                <p>(Seller name)</p>
+                <p>({{ product.seller?.username || 'Unknown seller' }})</p>
               </div>
             </div>
           </div>
-      <div class="product-card">
-        <a href="Product1.html">
-  <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
-    
-    <img 
-      src="/images/OIP_2 1.png" 
-      alt="jacket" 
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-  </div></a>
-  <h3 class="font-bold text-[#9F3247]">jacket</h3>
-  <div class="flex justify-between items-center mt-2">
-    <p class="font-bold text-[#9F3247]">800 E.P</p>
-    <div class="flex gap-2 text-sm text-gray-500">
-      <p class="text-[#9F3247]">1 bids</p>
-      <p>(Seller name)</p>
-    </div>
-  </div>
-</div>
-<div class="product-card">
-  <a href="Product1.html">
-  <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
-    <img 
-      src="/images/Frame 907.png" 
-      alt="Camera" 
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-  </div>
-</a>
-  <h3 class="font-bold text-[#9F3247]">Camera</h3>
-  <div class="flex justify-between items-center mt-2">
-    <p class="font-bold text-[#9F3247]">1500 E.P</p>
-    <div class="flex gap-2 text-sm text-gray-500">
-      <p class="text-[#9F3247]">1 bids</p>
-      <p>(Seller name)</p>
-    </div>
-  </div>
-</div>
-<div class="product-card">
-  <a href="Product1.html">
-  <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
-    <img 
-      src="/images/Frame 908.png" 
-      alt="shoes" 
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-  </div> </a>
-  <h3 class="font-bold text-[#9F3247]">shoes</h3>
-  <div class="flex justify-between items-center mt-2">
-    <p class="font-bold text-[#9F3247]">1200 E.P</p>
-    <div class="flex gap-2 text-sm text-gray-500">
-      <p class="text-[#9F3247]">1 bids</p>
-      <p>(Seller name)</p>
-    </div>
-  </div>
-</div>
-<div class="product-card">
-  <a href="Product1.html">
-  <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
-    <img 
-      src="/images/Frame 32.png" 
-      alt="Byoma Oil" 
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-  </div></a>
-  <h3 class="font-bold text-[#9F3247]">Byoma Oil</h3>
-  <div class="flex justify-between items-center mt-2">
-    <p class="font-bold text-[#9F3247]">300 E.P</p>
-    <div class="flex gap-2 text-sm text-gray-500">
-      <p class="text-[#9F3247]">1 bids</p>
-      <p>(Seller name)</p>
-    </div>
-  </div>
-</div>
-<div class="product-card">
-  <a href="Product1.html">
-  <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
-    <img 
-      src="/images/Frame 33.png" 
-      alt="Headphone" 
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-  </div></a>
-  <h3 class="font-bold text-[#9F3247]">Headphone</h3>
-  <div class="flex justify-between items-center mt-2">
-    <p class="font-bold text-[#9F3247]">950 E.P</p>
-    <div class="flex gap-2 text-sm text-gray-500">
-      <p class="text-[#9F3247]">1 bids</p>
-      <p>(Seller name)</p>
-    </div>
-  </div>
-</div>
-<div class="product-card">
-  <a href="Product1.html">
-  <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
-    <img 
-      src="/images/Frame 34.png" 
-      alt="Sunglasses" 
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-  </div></a>
-  <h3 class="font-bold text-[#9F3247]">Sunglasses</h3>
-  <div class="flex justify-between items-center mt-2">
-    <p class="font-bold text-[#9F3247]">500 E.P</p>
-    <div class="flex gap-2 text-sm text-gray-500">
-      <p class="text-[#9F3247]">3 bids</p>
-      <p>(Seller name)</p>
-    </div>
-  </div>
-</div>
-<div class="product-card">
-  <a href="Product1.html">
-  <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
-    <img 
-      src="/images/Frame 38.png" 
-      alt="Classic Watch" 
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-  </div></a>
-  <h3 class="font-bold text-[#9F3247]">Classic Watch</h3>
-  <div class="flex justify-between items-center mt-2">
-    <p class="font-bold text-[#9F3247]">950 E.P</p>
-    <div class="flex gap-2 text-sm text-gray-500">
-      <p class="text-[#9F3247]">1 bids</p>
-      <p>(Seller name)</p>
-    </div>
-  </div>
-</div>
+          
+          <!-- Empty state message if no products are available -->
+          <div *ngIf="products.length === 0" class="col-span-full text-center py-8">
+            <p class="text-gray-500">Loading products...</p>
+          </div>
         </div>
         <div class="text-center mt-8">
-            <button><a routerLink="/products"><span>View All</span></a> 
-            </button>
+          <button><a routerLink="/products"><span>View All</span></a></button>
         </div>
       </section>
+
       <!-- Categories -->
       <section class="py-4 md:py-4 ">
         <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-primary">BROWSE BY CATEGORIES</h2>
