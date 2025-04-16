@@ -1,79 +1,90 @@
-<div *ngIf="!isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
-  Sign up and get or sell your first order.
-  <a routerLink="/signup" class="underline">Sign Up Now</a>
-</div>
-<div *ngIf="isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
-  Welcome back, {{ username }}! Ready to explore or sell more products?
-</div>
-<header class="bg-white shadow-sm">
-    <nav class="container mx-auto px-4 py-4">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex items-center justify-between">
-        <h1 class="text-3xl font-bold">
-            <a routerLink="/">ShopY</a>
-        </h1>
-        <button class="md:hidden">☰</button>
-        </div>
-        <div class="hidden md:flex items-center w-full justify-between">
-            <div class="flex gap-6">
-              <a routerLink="/home" routerLinkActive="text-[#7B2334] font-semibold">Home</a>
-              <a routerLink="/products" routerLinkActive="text-[#7B2334] font-semibold">Products</a>
-              <a routerLink="/sell" routerLinkActive="text-[#7B2334] font-semibold">Sell</a>
-              <a routerLink="/bazaar" routerLinkActive="text-[#7B2334] font-semibold" [routerLinkActiveOptions]="{ exact: true }">Bazaar</a>
-            </div>
-    
-            <div class="flex items-center flex-1 mx-4 gap-4">
-              <div class="relative w-full md:w-[850px]">
-                <input type="search" placeholder="Search for products..." 
-                  class="w-full px-4 py-2 pl-10 border rounded-3xl">
-                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-              </div>
-    
-              <div class="flex gap-4 text-xl">
-                <a routerLink="/cart"><span role="img" aria-label="Cart">🛒</span></a>
-                <div class="relative" *ngIf="isLoggedIn">
-                  <button (click)="toggleDropdown()" class="flex items-center gap-2 focus:outline-none">
-                    <span role="img" aria-label="User">👤</span>
-                  </button>
-                  <div
-                    *ngIf="dropdownOpen"
-                    class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
-                  >
-                    <!-- Username Section -->
-                    <div class="px-4 py-3 border-b border-gray-200 bg-gray-50">
-                      <p class="text-sm font-semibold text-gray-700">{{ username }}</p>
-                    </div>
-                    <!-- Dropdown Options -->
-                    <a
-                      routerLink="/settings"
-                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-                    >
-                      <i class="fas fa-cog mr-2 text-gray-500"></i> Settings
-                    </a>
-                    <a
-                      routerLink="/sell/userProducts"
-                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-                    >
-                      <i class="fas fa-box mr-2 text-gray-500"></i> View My Products
-                    </a>
-                    <button
-                      (click)="logout()"
-                      class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-                    >
-                      <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
-                    </button>
-                  </div>
-                </div>
-                <a *ngIf="!isLoggedIn" routerLink="/login"><span role="img" aria-label="User">👤</span></a>
-              </div>
-            </div>
-    
-            <div *ngIf="isBazaarPage">
-              <button class="px-5 py-2 rounded-full text-white font-bold bg-gradient-to-r from-pink-500 to-red-600 shadow-lg animate-bounce hover:scale-105 transition-transform duration-300">
-                🚀 Coming Soon
-              </button>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nav</title>
+</head>
+<body class="font-inter">
+  <div *ngIf="!isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
+    Sign up and get or sell your first order.
+    <a routerLink="/signup" class="underline">Sign Up Now</a>
+  </div>
+  <div *ngIf="isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
+    Welcome back, {{ username }}! Ready to explore or sell more products?
+  </div>
+  <header class="bg-white shadow-sm">
+      <nav class="container mx-auto px-4 py-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex items-center justify-between">
+          <h1 class="text-3xl font-bold">
+              <a routerLink="/">ShopY</a>
+          </h1>
+          <button class="md:hidden">☰</button>
           </div>
-    </div>
-    </nav>
-</header>
+          <div class="hidden md:flex items-center w-full justify-between">
+              <div class="flex gap-6">
+                <a routerLink="/home" routerLinkActive="text-[#7B2334] font-semibold">Home</a>
+                <a routerLink="/products" routerLinkActive="text-[#7B2334] font-semibold">Products</a>
+                <a routerLink="/sell" routerLinkActive="text-[#7B2334] font-semibold">Sell</a>
+                <a routerLink="/bazaar" routerLinkActive="text-[#7B2334] font-semibold" [routerLinkActiveOptions]="{ exact: true }">Bazaar</a>
+              </div>
+      
+              <div class="flex items-center flex-1 mx-4 gap-4">
+                <div class="relative w-full md:w-[850px]">
+                  <input type="search" placeholder="Search for products..." 
+                    class="w-full px-4 py-2 pl-10 border rounded-3xl">
+                  <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+      
+                <div class="flex gap-4 text-xl">
+                  <a routerLink="/cart"><span role="img" aria-label="Cart">🛒</span></a>
+                  <div class="relative" *ngIf="isLoggedIn">
+                    <button (click)="toggleDropdown()" class="flex items-center gap-2 focus:outline-none">
+                      <span role="img" aria-label="User">👤</span>
+                    </button>
+                    <div
+                      *ngIf="dropdownOpen"
+                      class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+                    >
+                      <!-- Username Section -->
+                      <div class="px-4 py-3 border-b border-gray-200 bg-gray-50">
+                        <p class="text-sm font-semibold text-gray-700">{{ username }}</p>
+                      </div>
+                      <!-- Dropdown Options -->
+                      <a
+                        routerLink="/settings"
+                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                      >
+                        <i class="fas fa-cog mr-2 text-gray-500"></i> Settings
+                      </a>
+                      <a
+                        routerLink="/sell/userProducts"
+                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                      >
+                        <i class="fas fa-box mr-2 text-gray-500"></i> View My Products
+                      </a>
+                      <button
+                        (click)="logout()"
+                        class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                      >
+                        <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
+                      </button>
+                    </div>
+                  </div>
+                  <a *ngIf="!isLoggedIn" routerLink="/login"><span role="img" aria-label="User">👤</span></a>
+                </div>
+              </div>
+      
+              <div *ngIf="isBazaarPage">
+                <button class="px-5 py-2 rounded-full text-white font-bold bg-gradient-to-r from-pink-500 to-red-600 shadow-lg animate-bounce hover:scale-105 transition-transform duration-300">
+                  🚀 Coming Soon
+                </button>
+              </div>
+            </div>
+      </div>
+      </nav>
+  </header>
+  
+</body>
+</html>

@@ -6,9 +6,10 @@
 }
 
 /* Dropdown hover effects */
-a:hover, button:hover {
+
+/* a:hover, button:hover {
   background-color: #f9f9f9;
-}
+} */
 
 /* Dropdown animation */
 @keyframes fadeIn {

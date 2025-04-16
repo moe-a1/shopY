@@ -35,9 +35,10 @@
       <p class="text-green-600 font-medium">Price: ${{ product.price }}</p>
       <p class="text-gray-500 text-sm">Quantity: {{ product.quantity }}</p>
       <!-- Delete Button -->
+       <br>
       <button 
         (click)="deleteProduct(product._id)" 
-        class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+        class="px-6 py-3 bg-[#7B2334] text-white rounded-full shadow-md hover:bg-[#5a1926] transition-all duration-300 transform hover:scale-105">
         Delete
       </button>
     </div>
