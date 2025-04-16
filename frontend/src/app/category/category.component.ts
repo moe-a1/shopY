@@ -51,14 +51,15 @@ export class CategoryComponent {
 
   // Fetch the price range from the backend
   fetchPriceRange(): void {
-    this.http.get('http://localhost:5000/api/products/getPriceRange').subscribe(
+    const formattedCategoryName = this.categoryName.charAt(0).toUpperCase() + this.categoryName.slice(1);
+    this.http.get(`http://localhost:5000/api/products/category/${formattedCategoryName}/getPriceRange`).subscribe(
       (data: any) => {
         this.minPrice = data.minPrice;
         this.maxPrice = data.maxPrice;
         this.currentPriceRange = this.maxPrice; // Default to max price
       },
       (error) => {
-        console.error('Error fetching price range:', error);
+        console.error('Error fetching category price range:', error);
       }
     );
   }
