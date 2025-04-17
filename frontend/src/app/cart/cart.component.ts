@@ -121,7 +121,26 @@ export class CartComponent implements OnInit {
 
   proceedToCheckout(): void {
     if (this.cartItems.length > 0) {
-      this.router.navigate(['/checkout']);
+      const headers = this.getAuthHeaders();
+      this.http.delete(`${this.apiUrl}/empty`, { headers }).subscribe(
+        () => {
+          this.cartItems = [];
+          const alertBox = document.getElementById('success-alert');
+          if (alertBox) {
+            alertBox.classList.remove('hidden');
+            setTimeout(() => alertBox.classList.add('hidden'), 3000); // Hide after 3 seconds
+          }
+        },
+        (error) => {
+          console.error('Error placing order:', error);
+        }
+      );
+    } else {
+      const errorAlertBox = document.getElementById('error-alert');
+      if (errorAlertBox) {
+        errorAlertBox.classList.remove('hidden');
+        setTimeout(() => errorAlertBox.classList.add('hidden'), 3000); // Hide after 3 seconds
+      }
     }
   }
 }

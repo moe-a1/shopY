@@ -1,0 +1,59 @@
+#success-alert {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+#success-alert:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#error-alert {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+#error-alert:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden {
+  display: none;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.top-4 {
+  top: 1rem; /* Adjusts the distance from the top */
+}
+
+.right-4 {
+  right: 1rem; /* Positions the alert on the right */
+}
+
+.bg-green-500 {
+  background-color: #38a169; /* Green background */
+}
+
+.text-white {
+  color: #ffffff; /* White text */
+}
+
+.rounded-lg {
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
