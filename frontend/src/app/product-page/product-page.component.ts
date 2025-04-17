@@ -28,6 +28,7 @@ export interface Product {
 export class ProductPageComponent implements OnInit {
   product: Product | null = null;
   selectedImageIndex: number = 0;
+  relatedProducts: Product[] = [];
   apiUrl = 'http://localhost:5000/api'; // adjust this to match your backend URL
 
   constructor(
@@ -47,6 +48,7 @@ export class ProductPageComponent implements OnInit {
     this.route.params.subscribe(params => {
       const productId = params['id'];
       this.fetchProductDetails(productId);
+      this.fetchRelatedProducts(productId); // Fetch related products
     });
   }
 
@@ -60,6 +62,17 @@ export class ProductPageComponent implements OnInit {
           console.error('Error fetching product:', error);
         }
       });
+  }
+
+  fetchRelatedProducts(productId: string) {
+    this.http.get<Product[]>(`${this.apiUrl}/products/${productId}/related`).subscribe({
+      next: (products) => {
+        this.relatedProducts = products;
+      },
+      error: (error) => {
+        console.error('Error fetching related products:', error);
+      },
+    });
   }
 
   selectImage(index: number) {
