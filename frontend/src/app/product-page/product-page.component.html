@@ -37,11 +37,14 @@
               <img [src]="image" [alt]="product.title + ' thumbnail'" class="w-full h-full object-cover" />
             </button>
           </div>
-          <div class="flex-1">
+          <div class="flex-1 relative group">
+            <!-- Large Image -->
             <img 
               [src]="product.images[selectedImageIndex]" 
               [alt]="product.title" 
-              class="w-full rounded-xl object-cover aspect-[4/3] shadow-md transition-all duration-300" />
+              class="w-full rounded-xl object-cover aspect-[4/3] shadow-md transition-all duration-300 group-hover:scale-105 cursor-pointer h-125"
+               />
+
           </div>
         </div>
 
@@ -96,6 +99,28 @@
         <div class="flex items-center gap-2">
           <span class="text-2xl font-bold text-[#8B1F41]">ahla shoghl</span>
           <span class="text-sm text-gray-500">(5 reviews)</span>
+        </div>
+      </div>
+
+      <!-- Related Products Section -->
+      <div class="mt-10">
+        <h2 class="text-2xl font-semibold mb-6">Related Products</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div 
+            *ngFor="let product of relatedProducts" 
+            class="border rounded-lg p-4 shadow-sm hover:shadow-md transition">
+            <img 
+              [src]="product.images[0]" 
+              [alt]="product.title" 
+              class="w-full h-40 object-cover rounded-md mb-4">
+            <h3 class="text-lg font-medium mb-2">{{ product.title }}</h3>
+            <p class="text-[#8B1F41] font-bold">{{ product.price }} E.P</p>
+            <button 
+              class="mt-4 bg-[#8B1F41] text-white py-2 px-4 rounded-lg hover:bg-[#7A1B39] transition"
+              [routerLink]="['/product', product._id]">
+              View Product
+            </button>
+          </div>
         </div>
       </div>
     </div>
