@@ -86,16 +86,21 @@ export class ProductPageComponent implements OnInit {
       productId: this.product._id,
       quantity: 1,
     };
-    
+
     const headers = this.getAuthHeaders();
 
     this.http.post(`${this.apiUrl}/cart/updateCart`, cartItem, { headers }).subscribe({
       next: () => {
-        alert('Product added to cart successfully!');
+        const notification = document.getElementById('cart-notification');
+        if (notification) {
+          notification.style.display = 'block';
+          setTimeout(() => {
+            notification.style.display = 'none';
+          }, 3000); // Hide after 3 seconds
+        }
       },
       error: (error) => {
         console.error('Error adding product to cart:', error);
-        alert('Failed to add product to cart.');
       },
     });
   }

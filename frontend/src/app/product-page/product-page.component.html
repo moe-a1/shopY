@@ -93,6 +93,11 @@
         </div>
       </div>
 
+      <!-- Notification -->
+      <div class="notification" id="cart-notification">
+        Product added to cart successfully!
+      </div>
+
       <!-- Ratings Section -->
       <div class="border rounded-xl p-6 bg-white shadow-sm mt-10 w-full">
         <h2 class="text-xl font-semibold mb-4 text-gray-800">Ratings & Reviews</h2>
@@ -112,7 +117,7 @@
             <img 
               [src]="product.images[0]" 
               [alt]="product.title" 
-              class="w-full h-40 object-cover rounded-md mb-4">
+              class="w-full h-40 object-full rounded-md mb-4">
             <h3 class="text-lg font-medium mb-2">{{ product.title }}</h3>
             <p class="text-[#8B1F41] font-bold">{{ product.price }} E.P</p>
             <button 
