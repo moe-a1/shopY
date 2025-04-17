@@ -11,7 +11,7 @@ interface CartItem {
   name: string;
   price: number;
   seller: string;
-  image: string;
+  image: [string];
   quantity: number;
 }
 
@@ -52,7 +52,7 @@ export class CartComponent implements OnInit {
           name: item.product.name,
           price: item.product.price,
           seller: item.product.seller, 
-          image: item.product.image,
+          image: item.product.image[0],
           quantity: item.quantity,
         }));
       },
