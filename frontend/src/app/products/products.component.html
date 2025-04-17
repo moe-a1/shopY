@@ -60,7 +60,11 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div *ngFor="let product of products" class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div 
+            *ngFor="let product of products" 
+            class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+            [routerLink]="['/product', product._id]"
+          >
             <img [src]="product.images[0]" [alt]="product.title" class="w-full object-cover h-70"/>
             <div class="p-4">
               <h3 class="text-lg font-semibold">{{product.title}}</h3>

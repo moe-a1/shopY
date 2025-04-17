@@ -1,176 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>product Page</title>
-<link href="https://unpkg.com/lucide-icons/dist/umd/lucide-icons.min.js" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide-icons"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Page</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
-<body class="font-inter">
-  <app-nav />
-  <div class="min-h-screen bg-gray-50 p-4 md:p-8">
-    <nav class="mb-6 flex items-center gap-2 text-sm text-gray-600">
-      <a href="page2.html" class="hover:text-gray-900">Home</a>
+
+<body class="font-inter bg-gray-50 text-gray-900">
+  <app-nav></app-nav>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-8 min-h-screen">
+    <!-- Breadcrumb -->
+    <nav class="mb-6 text-sm text-gray-600 flex items-center gap-2" *ngIf="product">
+      <a href="/" class="hover:text-gray-900">Home</a>
       <span>></span>
-      <a href="#" class="hover:text-gray-900">Category</a>
-      <span>></span>
-      <span class=" font-bold">xyz instrument</span>
+      <span class="font-semibold">{{product.title}}</span>
     </nav>
 
-    <div class="flex flex-col gap-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Left side - Images -->
+    <div class="flex flex-col gap-10" *ngIf="product">
+      <!-- Product Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <!-- Image Gallery -->
         <div class="flex gap-4">
           <div class="hidden md:flex flex-col gap-2">
-            <button class="w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-gray-300 transition-colors">
-              <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&q=80&w=100" alt="Gramophone thumbnail" class="w-full h-full object-cover">
-            </button>
-            <button class="w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-gray-300 transition-colors">
-              <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&q=80&w=100" alt="Gramophone thumbnail" class="w-full h-full object-cover">
-            </button>
-            <button class="w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-gray-300 transition-colors">
-              <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&q=80&w=100" alt="Gramophone thumbnail" class="w-full h-full object-cover">
-            </button>
-            <button class="w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-gray-300 transition-colors">
-              <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&q=80&w=100" alt="Gramophone thumbnail" class="w-full h-full object-cover">
+            <button 
+              *ngFor="let image of product.images; let i = index"
+              class="w-20 h-20 rounded-lg overflow-hidden border-2 transition-all hover:scale-105"
+              [class.border-gray-300]="selectedImageIndex === i"
+              [class.border-gray-200]="selectedImageIndex !== i"
+              (click)="selectImage(i)">
+              <img [src]="image" [alt]="product.title + ' thumbnail'" class="w-full h-full object-cover" />
             </button>
           </div>
           <div class="flex-1">
-            <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&q=80&w=800" alt="Gramophone" class=" rounded-lg object-cover aspect-square">
+            <img 
+              [src]="product.images[selectedImageIndex]" 
+              [alt]="product.title" 
+              class="w-full rounded-xl object-cover aspect-[4/3] shadow-md transition-all duration-300" />
           </div>
         </div>
 
-        <!-- Right side - Product Info -->
+        <!-- Product Info -->
         <div class="flex flex-col gap-6">
           <div>
-            <h1 class="text-3xl font-semibold mb-4">Gramophone</h1>
-            <div class="flex items-baseline gap-2 mb-4">
-              <span class="text-2xl font-bold">1300 E.P</span>
-              <span class="text-sm text-gray-500">(2 bids)</span>
+            <h1 class="text-4xl font-bold mb-2">{{product.title}}</h1>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-2xl font-bold text-[#8B1F41]">{{product.price}} E.P</span>
+              <span class="bg-green-100 text-green-800 text-sm font-medium px-2 py-1 rounded-full">In Stock</span>
             </div>
-            <p class="text-gray-600">
-              PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive, free install & mess free removal Pressure sensitive.
+
+            <!-- Description Section -->
+            <p class="text-gray-600 text-base leading-relaxed mb-4">
+              {{product.description}}
             </p>
-          </div>
 
-          <div class="flex flex-col gap-4">
-            <div class="flex items-center justify-between p-4 border rounded-lg">
-              <div class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600">
-                  <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path>
-                  <path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path>
-                  <circle cx="7" cy="18" r="2"></circle>
-                  <circle cx="16" cy="18" r="2"></circle>
-                </svg>
-                <div>
-                  <h3 class="font-medium">Shipping</h3>
-                  <p class="text-sm text-gray-500">Rs. 100 per order</p>
+            <hr class="border-gray-200 mb-4" />
+
+            <!-- Seller Section -->
+            <div class="mx-auto bg-white p-6 rounded-xl shadow-md w-full md:w-3/4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                  <i class="fas fa-user"></i>
                 </div>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between p-4 border rounded-lg">
-              <div class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
                 <div>
-                  <h3 class="font-medium">Delivery</h3>
-                  <p class="text-sm text-gray-500">Estimated between Thu, Jan 4 and Fri, Jan 12</p>
+                  <h2 class="font-semibold text-lg text-gray-900">{{product.seller.username}}</h2>
+                  <p class="text-sm text-gray-500">Verified Seller</p>
                 </div>
               </div>
             </div>
           </div>
 
+          <!-- Actions -->
           <div class="flex gap-4">
-            <button class="flex-1 bg-[#8B1F41] text-white py-3 px-6 rounded-lg hover:bg-[#7A1B39] transition-colors">
-              Bid Now
+            <button 
+              class="flex-1 bg-[#8B1F41] text-white py-3 px-6 rounded-lg shadow hover:bg-[#7A1B39] transition font-medium"
+              (click)="addToCart()">
+              <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
             </button>
-            <button class="p-3 border rounded-lg hover:bg-gray-50 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-              </svg>
+            <button class="p-3 border rounded-lg hover:bg-gray-100 transition flex items-center gap-2 text-gray-700">
+              <i class="fas fa-heart"></i>
+              <span class="hidden md:inline">Wishlist</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- About section -->
-      <div class="border rounded-lg p-6 bg-white">
-        <h2 class="text-xl font-semibold mb-4">About this item</h2>
-        <p class="text-gray-600">
-          Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing turpis nunc orci fringilla tristique. In scelerisque velit dui eleifend pellentesque volutpat cras vitae. Diam urna purus cursus sit.
-        </p>
-      </div>
-
-      <!-- Kalf section -->
-
-<div class=" mx-auto bg-white p-6 rounded-lg shadow-sm">
-    <!-- Profile header with avatar, name, rating -->
-    <div class="flex items-start gap-4 mb-4">
-      <!-- Avatar image -->
-      <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=50" alt="Profile avatar" class="w-full h-full object-cover" />
-      </div>
-      
-      <!-- Profile info -->
-      <div class="flex-1">
-        <!-- Name -->
-        <h2 class="font-medium text-lg">Kalf Khowaja</h2>
-        
-        <!-- Rating stars and review count -->
-        <div class="flex items-center mt-1">
-          <!-- 5 gold stars -->
-          <div class="flex text-amber-400">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-              <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-              <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-              <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-              <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-              <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-            </svg>
-          </div>
-          
-          <!-- Review count -->
-          <span class="text-gray-500 text-sm ml-2">(350 Reviews)</span>
+      <!-- Ratings Section -->
+      <div class="border rounded-xl p-6 bg-white shadow-sm mt-10 w-full">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Ratings & Reviews</h2>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl font-bold text-[#8B1F41]">ahla shoghl</span>
+          <span class="text-sm text-gray-500">(5 reviews)</span>
         </div>
       </div>
-      
-      <!-- Button container - positioned to the right -->
-      <div class="flex flex-col gap-2 w-32">
-        <!-- "Other products" button - dark red/burgundy with white text -->
-        <button class="bg-rose-800 text-white py-2 px-4 rounded text-sm hover:bg-rose-900 transition-colors duration-200 w-full">
-          Other products
-        </button>
-        <button class="bg-white text-[#7B2334] py-2 px-4 rounded border border-[#7B2334] text-sm  transition-colors duration-200 w-full ">
-          Contact
-        </button>
-      </div>
     </div>
-    
-    <p class="text-gray-600 text-sm mt-2">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ornare elementum risus eam aliquae asd ut. Quam  
-      nam eu egestas etiam et auctor nunc, ultricies. In consectetur urna nibh molestie. Risus sem aliquet asd ut. Quam 
-      cursus unda sodales et. Duis adipiscing blanket risus mollisaculis elementum.
-    </p>
-    <hr class="my-4 border-gray-200">
-  </div>
+
+    <!-- Loading state -->
+    <div *ngIf="!product" class="flex justify-center items-center min-h-[400px]">
+      <p>Loading product details...</p>
     </div>
   </div>
-  <app-footer />
+
+  <app-footer></app-footer>
 </body>
 </html>

@@ -28,6 +28,6 @@ export const routes: Routes = [
     { path: 'products', component: ProductsComponent },
     { path: 'cart', component: CartComponent },
     { path: 'category/:categoryName', component: CategoryComponent },
-    { path: 'ProductPage', component: ProductPageComponent },
+    { path: 'product/:id', component: ProductPageComponent },
 ];
 
