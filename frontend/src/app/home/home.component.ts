@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit {
   minutes: number = 6;
   seconds: number = 58;
   products: Product[] = [];
+  hoveredProduct: string | null = null; // Track the hovered product ID
 
-  // The interval to update the countdown every second
   private interval: any;
 
   constructor(private http: HttpClient) {}
@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
     this.fetchRandomProducts();
   }
 
-  // Function to fetch random products from the backend
   fetchRandomProducts(): void {
     this.http.get<Product[]>('http://localhost:5000/api/products/random/8').subscribe(
       (data) => {
@@ -55,7 +54,6 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  // Function to start the countdown
   startCountdown() {
     this.interval = setInterval(() => {
       if (this.seconds > 0) {
@@ -73,14 +71,13 @@ export class HomeComponent implements OnInit {
         this.minutes = 59;
         this.seconds = 59;
       } else {
-        clearInterval(this.interval); // Stop the countdown when it reaches zero
-        this.resetCountdown(); // Reset the countdown after it finishes
-        this.startCountdown(); // Restart the countdown
+        clearInterval(this.interval);
+        this.resetCountdown();
+        this.startCountdown();
       }
-    }, 1000); // Update every second
+    }, 1000);
   }
 
-  // Function to reset the countdown to initial values
   resetCountdown() {
     this.days = 6;
     this.hours = 23;
