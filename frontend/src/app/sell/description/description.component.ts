@@ -24,6 +24,20 @@ export class DescriptionComponent {
   constructor(private router: Router) {}
 
   onNext() {
+    if (!this.productName || !this.availability || !this.description || !this.price) {
+      const notification = document.getElementById('error-notification');
+      if (notification) {
+        notification.style.display = 'block';
+        setTimeout(() => {
+          notification.style.display = 'none';
+        }, 3000); // Hide after 3 seconds
+      }
+      return;
+    }
+
+    // Proceed to the next step
+    console.log('All fields are valid. Proceeding to the next step...');
+
     const productData = {
       title: this.productName,
       description: this.description,

@@ -63,7 +63,11 @@
             [(ngModel)]="productName"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
             placeholder="Enter Product Name"
+            required
             >
+            <div *ngIf="!productName && showErrors" class="text-red-500 text-sm mt-1">
+              Product name is required.
+            </div>
             <div class="text-xs text-gray-500 mt-1">{{productName.length}}/60</div>
         </div>
 
@@ -74,6 +78,7 @@
             [(ngModel)]="availability"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
             placeholder="Availability"
+            required
             >
         </div>
 
@@ -84,6 +89,7 @@
             rows="4"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
             placeholder="Enter Description of The Product"
+            required
             ></textarea>
             <div class="text-xs text-gray-500 mt-1">{{description.length}}/1200</div>
         </div>
@@ -96,9 +102,15 @@
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9F3247]"
             placeholder="Product price"
             min="0"
+            required
             >
         </div>
         </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification error" id="error-notification">
+      Please fill out all required fields before proceeding.
     </div>
 
     <!-- Next Button -->
