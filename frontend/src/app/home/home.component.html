@@ -60,7 +60,7 @@
         <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <!-- Product Cards -->
           <div class="product-card" *ngFor="let product of products">
-            <a [routerLink]="['/products', product._id]">
+            <a [routerLink]="['/product', product._id]">
               <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
                 <img 
                   [src]="product.images && product.images.length > 0 ? product.images[0] : 'assets/placeholder-image.jpg'" 
