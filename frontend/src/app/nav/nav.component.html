@@ -6,11 +6,11 @@
   <title>Nav</title>
 </head>
 <body class="font-inter">
-  <div *ngIf="!isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
+  <div *ngIf="!isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm poetsen-font">
     Sign up and get or sell your first order.
     <a routerLink="/signup" class="underline">Sign Up Now</a>
   </div>
-  <div *ngIf="isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm">
+  <div *ngIf="isLoggedIn" class="bg-[#7B2334] text-white text-center py-2 text-sm poetsen-font">
     Welcome back, {{ username }}! Ready to explore or sell more products?
   </div>
   <header class="bg-white shadow-sm">
