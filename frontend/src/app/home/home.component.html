@@ -63,10 +63,12 @@
             <a [routerLink]="['/product', product._id]">
               <div class="relative aspect-square rounded-lg mb-4 overflow-hidden">
                 <img 
-                  [src]="product.images && product.images.length > 0 ? product.images[0] : 'assets/placeholder-image.jpg'" 
+                  [src]="hoveredProduct === product._id && product.images.length > 1 ? product.images[1] : (product.images && product.images.length > 0 ? product.images[0] : 'assets/placeholder-image.jpg')" 
                   [alt]="product.title" 
                   class="absolute inset-0 w-full h-full object-cover"
                   onerror="this.src='assets/placeholder-image.jpg'"
+                  (mouseenter)="hoveredProduct = product._id"
+                  (mouseleave)="hoveredProduct = null"
                 >
               </div>
             </a>
