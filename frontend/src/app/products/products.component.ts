@@ -6,9 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-
-
+import { LoadingService } from '../services/loading.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +23,10 @@ export class ProductsComponent {
   sortOptions: string[] = ['Most Popular', 'Price: Low to High', 'Price: High to Low', 'Newest First'];
   selectedSort: string = 'Most Popular';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit() {
     this.fetchProducts();
@@ -33,7 +35,10 @@ export class ProductsComponent {
 
   // Fetch all products from the backend
   fetchProducts(): void {
-    this.http.get('http://localhost:5000/api/products/').subscribe(
+    this.loadingService.setLoading(true);
+    this.http.get('http://localhost:5000/api/products/').pipe(
+      finalize(() => this.loadingService.setLoading(false))
+    ).subscribe(
       (data: any) => {
         this.products = data;
       },
@@ -45,6 +50,7 @@ export class ProductsComponent {
 
   // Fetch the price range from the backend
   fetchPriceRange(): void {
+    this.loadingService.setLoading(true);
     this.http.get('http://localhost:5000/api/products/getPriceRange').subscribe(
       (data: any) => {
         this.minPrice = data.minPrice;

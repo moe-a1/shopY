@@ -4,6 +4,9 @@ import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { LoadingService } from '../services/loading.service';
+import { finalize } from 'rxjs/operators';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 interface Product {
   _id: string;
@@ -21,7 +24,14 @@ interface Product {
 
 @Component({
   selector: 'app-home',
-  imports: [NavComponent, FooterComponent, RouterModule, CommonModule, HttpClientModule],
+  imports: [
+    NavComponent, 
+    FooterComponent, 
+    RouterModule, 
+    CommonModule, 
+    HttpClientModule,
+    LoadingSpinnerComponent
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -35,7 +45,10 @@ export class HomeComponent implements OnInit {
 
   private interval: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
     this.startCountdown();
@@ -43,15 +56,20 @@ export class HomeComponent implements OnInit {
   }
 
   fetchRandomProducts(): void {
-    this.http.get<Product[]>('http://localhost:5000/api/products/random/8').subscribe(
-      (data) => {
-        this.products = data;
-        console.log('Fetched products:', this.products);
-      },
-      (error) => {
-        console.error('Error fetching random products:', error);
-      }
-    );
+    this.loadingService.setLoading(true);
+    this.http.get<Product[]>('http://localhost:5000/api/products/random/8')
+      .pipe(
+        finalize(() => this.loadingService.setLoading(false))
+      )
+      .subscribe(
+        (data) => {
+          this.products = data;
+          console.log('Fetched products:', this.products);
+        },
+        (error) => {
+          console.error('Error fetching random products:', error);
+        }
+      );
   }
 
   startCountdown() {

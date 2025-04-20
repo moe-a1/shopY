@@ -10,6 +10,8 @@
 <body class="font-inter">
   <app-nav></app-nav>
 
+  <app-loading-spinner></app-loading-spinner>
+
   <div class="container mx-auto px-4 py-6">
     <div class="flex flex-col md:flex-row gap-6">
       <!-- Filter Sidebar -->
@@ -60,8 +62,12 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div *ngFor="let product of products" class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img [src]="product.images[0]" [alt]="product.title" class="w-full object-full h-80 "/>
+          <div 
+            *ngFor="let product of products" 
+            class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" 
+            [routerLink]="['/product', product._id]"
+          >
+            <img [src]="product.images[0]" [alt]="product.title" class="w-full object-full h-80" />
             <div class="p-4">
               <h3 class="text-lg font-semibold">{{product.title}}</h3>
               <div class="flex justify-between items-center mt-2">
