@@ -5,11 +5,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { LoadingService } from '../services/loading.service';
+import { finalize } from 'rxjs/operators';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-category',
-  imports: [NavComponent, FooterComponent, CommonModule, FormsModule, HttpClientModule],
+  imports: [
+    NavComponent, 
+    FooterComponent, 
+    CommonModule, 
+    FormsModule, 
+    HttpClientModule, 
+    RouterLink,
+    LoadingSpinnerComponent
+  ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
@@ -24,7 +35,8 @@ export class CategoryComponent {
 
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {
@@ -38,8 +50,11 @@ export class CategoryComponent {
 
   // Fetch products by category from the backend
   fetchProductsByCategory(): void {
+    this.loadingService.setLoading(true);
     const formattedCategoryName = this.categoryName.charAt(0).toUpperCase() + this.categoryName.slice(1);
-    this.http.get(`http://localhost:5000/api/products/category/${formattedCategoryName}`).subscribe(
+    this.http.get(`http://localhost:5000/api/products/category/${formattedCategoryName}`).pipe(
+      finalize(() => this.loadingService.setLoading(false))
+    ).subscribe(
       (data: any) => {
         this.products = data;
       },
@@ -51,6 +66,7 @@ export class CategoryComponent {
 
   // Fetch the price range from the backend
   fetchPriceRange(): void {
+    this.loadingService.setLoading(true);
     const formattedCategoryName = this.categoryName.charAt(0).toUpperCase() + this.categoryName.slice(1);
     this.http.get(`http://localhost:5000/api/products/category/${formattedCategoryName}/getPriceRange`).subscribe(
       (data: any) => {
@@ -66,16 +82,17 @@ export class CategoryComponent {
 
   // Apply filter based on the current price range
   applyFilter(): void {
-    this.http
-      .get(`http://localhost:5000/api/products/category/${this.categoryName}/filter?minPrice=${this.minPrice}&maxPrice=${this.currentPriceRange}`)
-      .subscribe(
-        (data: any) => {
-          this.products = data;
-        },
-        (error) => {
-          console.error('Error applying filter:', error);
-        }
-      );
+    this.loadingService.setLoading(true);
+    this.http.get(`http://localhost:5000/api/products/category/${this.categoryName}/filter?minPrice=${this.minPrice}&maxPrice=${this.currentPriceRange}`).pipe(
+      finalize(() => this.loadingService.setLoading(false))
+    ).subscribe(
+      (data: any) => {
+        this.products = data;
+      },
+      (error) => {
+        console.error('Error applying filter:', error);
+      }
+    );
   }
 
   // Sort products based on the selected option
