@@ -1,0 +1,66 @@
+<app-nav></app-nav>
+<div class="container mx-auto px-4 py-8">
+  <!-- Orders Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">My Orders</h1>
+    <p class="text-gray-600">Track and manage your orders</p>
+  </div>
+
+  <!-- Orders List -->
+  <div class="space-y-6">
+    <div *ngIf="orders.length === 0" class="text-center py-8">
+      <i class="fas fa-shopping-bag text-gray-400 text-5xl mb-4"></i>
+      <p class="text-gray-500">No orders found</p>
+      <a routerLink="/" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">Continue Shopping</a>
+    </div>
+
+    <!-- Order Card -->
+    <div *ngFor="let order of orders" class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Order #{{order.orderId}}</h2>
+          <p class="text-sm text-gray-500">Placed on {{order.createdAt | date:'medium'}}</p>
+        </div>
+        <div class="text-right">
+          <span class="px-3 py-1 rounded-full text-sm" 
+                [ngClass]="{
+                  'bg-yellow-100 text-yellow-800': order.status === 'pending',
+                  'bg-blue-100 text-blue-800': order.status === 'shipped',
+                  'bg-green-100 text-green-800': order.status === 'delivered'
+                }">
+            {{order.status | titlecase}}
+          </span>
+        </div>
+      </div>
+
+      <!-- Order Items -->
+      <div class="border-t border-gray-200 pt-4">
+        <div *ngFor="let item of order.items" class="flex items-center py-4 border-b border-gray-100 last:border-0">
+          <img [src]="item.product.image" alt="{{item.product.title}}" 
+               class="w-20 h-20 object-cover rounded-md">
+          <div class="ml-4 flex-grow">
+            <h3 class="text-sm font-medium text-gray-800">{{item.product.title}}</h3>
+            <p class="text-sm text-gray-500">Seller: {{item.product.seller}}</p>
+            <div class="flex justify-between items-center mt-2">
+              <p class="text-sm text-gray-600">Quantity: {{item.quantity}}</p>
+              <p class="text-sm font-medium text-gray-800">EGP {{item.subtotal}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <div class="flex justify-between items-center">
+          <span class="text-sm font-medium text-gray-600">Total Items:</span>
+          <span class="text-sm text-gray-800">{{order.itemCount}}</span>
+        </div>
+        <div class="flex justify-between items-center mt-2">
+          <span class="text-base font-semibold text-gray-800">Total Amount:</span>
+          <span class="text-base font-bold text-gray-800">EGP {{order.totalAmount}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

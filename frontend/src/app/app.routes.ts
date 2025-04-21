@@ -13,6 +13,7 @@ import { ProductsComponent } from './products/products.component';
 import { CartComponent } from './cart/cart.component';
 import { CategoryComponent } from './category/category.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { OrderComponent } from './order/order.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -29,5 +30,6 @@ export const routes: Routes = [
     { path: 'cart', component: CartComponent },
     { path: 'category/:categoryName', component: CategoryComponent },
     { path: 'product/:id', component: ProductPageComponent },
+    { path: 'orders', component: OrderComponent },
 ];
 

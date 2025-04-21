@@ -122,24 +122,41 @@ export class CartComponent implements OnInit {
   proceedToCheckout(): void {
     if (this.cartItems.length > 0) {
       const headers = this.getAuthHeaders();
-      this.http.delete(`${this.apiUrl}/empty`, { headers }).subscribe(
-        () => {
-          this.cartItems = [];
-          const alertBox = document.getElementById('success-alert');
-          if (alertBox) {
-            alertBox.classList.remove('hidden');
-            setTimeout(() => alertBox.classList.add('hidden'), 3000); // Hide after 3 seconds
-          }
+
+      // First create the order
+      this.http.post('http://localhost:5000/api/order/createOrder', {}, { headers }).subscribe(
+        (response: any) => {
+          // After successful order creation, empty the cart
+          this.http.delete(`${this.apiUrl}/empty`, { headers }).subscribe(
+            () => {
+              this.cartItems = [];
+              const alertBox = document.getElementById('success-alert');
+              if (alertBox) {
+                alertBox.classList.remove('hidden');
+                setTimeout(() => alertBox.classList.add('hidden'), 3000);
+              }
+              // Navigate to orders page after successful checkout
+              this.router.navigate(['/orders']);
+            },
+            (error) => {
+              console.error('Error emptying cart:', error);
+            }
+          );
         },
         (error) => {
-          console.error('Error placing order:', error);
+          console.error('Error creating order:', error);
+          const errorAlertBox = document.getElementById('error-alert');
+          if (errorAlertBox) {
+            errorAlertBox.classList.remove('hidden');
+            setTimeout(() => errorAlertBox.classList.add('hidden'), 3000);
+          }
         }
       );
     } else {
       const errorAlertBox = document.getElementById('error-alert');
       if (errorAlertBox) {
         errorAlertBox.classList.remove('hidden');
-        setTimeout(() => errorAlertBox.classList.add('hidden'), 3000); // Hide after 3 seconds
+        setTimeout(() => errorAlertBox.classList.add('hidden'), 3000);
       }
     }
   }
