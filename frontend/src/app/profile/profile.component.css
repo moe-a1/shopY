@@ -1,0 +1,15 @@
+.profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .text-danger {
+    font-size: 0.875rem;
+  }
+  

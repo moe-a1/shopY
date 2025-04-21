@@ -14,6 +14,7 @@ import { CartComponent } from './cart/cart.component';
 import { CategoryComponent } from './category/category.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { OrderComponent } from './order/order.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -31,5 +32,6 @@ export const routes: Routes = [
     { path: 'category/:categoryName', component: CategoryComponent },
     { path: 'product/:id', component: ProductPageComponent },
     { path: 'orders', component: OrderComponent },
+    { path: 'profile', component: ProfileComponent },
 ];
 
