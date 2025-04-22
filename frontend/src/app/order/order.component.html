@@ -1,9 +1,18 @@
-<app-nav></app-nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <app-nav></app-nav>
 <div class="container mx-auto px-4 py-8">
   <!-- Orders Header -->
   <div class="mb-8">
-    <h1 class="text-2xl font-bold text-gray-800">My Orders</h1>
-    <p class="text-gray-600">Track and manage your orders</p>
+    <h1 class="text-2xl font-bold text-[#7B2334]">My Orders</h1>
+    <p class="text-black">Track and manage your orders</p>
   </div>
 
   <!-- Orders List -->
@@ -11,7 +20,7 @@
     <div *ngIf="orders.length === 0" class="text-center py-8">
       <i class="fas fa-shopping-bag text-gray-400 text-5xl mb-4"></i>
       <p class="text-gray-500">No orders found</p>
-      <a routerLink="/" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">Continue Shopping</a>
+      <a routerLink="/products" class="text-[#7B2334] hover:text-[#9F3247] mt-2 inline-block">Continue Shopping</a>
     </div>
 
     <!-- Order Card -->
@@ -64,3 +73,6 @@
   </div>
 </div>
 <app-footer></app-footer>
+
+</body>
+</html>

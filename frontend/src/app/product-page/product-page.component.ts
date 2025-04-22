@@ -16,6 +16,16 @@ export interface Product {
     _id: string;
     username: string;
   };
+  reviews: {
+    _id: string;
+    user: {
+      _id: string;
+      username: string;
+    };
+    rating: number;
+    comment: string;
+    createdAt: Date;
+  }[];
 }
 
 @Component({
@@ -30,6 +40,7 @@ export class ProductPageComponent implements OnInit {
   selectedImageIndex: number = 0;
   relatedProducts: Product[] = [];
   apiUrl = 'http://localhost:5000/api'; // adjust this to match your backend URL
+  averageRating: number = 0;
 
   constructor(
     private http: HttpClient,
@@ -57,6 +68,8 @@ export class ProductPageComponent implements OnInit {
       .subscribe({
         next: (product) => {
           this.product = product;
+          this.averageRating = this.calculateAverageRating();
+          console.log('Product details:', product);
         },
         error: (error) => {
           console.error('Error fetching product:', error);
@@ -103,5 +116,11 @@ export class ProductPageComponent implements OnInit {
         console.error('Error adding product to cart:', error);
       },
     });
+  }
+
+  calculateAverageRating() {
+    if (!this.product?.reviews?.length) return 0;
+    const sum = this.product.reviews.reduce((acc, review) => acc + review.rating, 0);
+    return Number((sum / this.product.reviews.length).toFixed(1));
   }
 }

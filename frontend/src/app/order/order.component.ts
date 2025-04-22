@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { CommonModule } from '@angular/common';
 import { NavComponent } from '../nav/nav.component';
 import { FooterComponent } from '../footer/footer.component';
+import { RouterModule } from '@angular/router';
 
 interface ProductInfo {
   _id: string;
@@ -32,7 +33,7 @@ interface Order {
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, NavComponent, FooterComponent],
+  imports: [CommonModule, HttpClientModule, NavComponent, FooterComponent,RouterModule],
 })
 export class OrderComponent implements OnInit {
   orders: Order[] = [];
