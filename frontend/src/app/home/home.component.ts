@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavComponent } from '../nav/nav.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -24,6 +24,7 @@ interface Product {
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [
     NavComponent, 
     FooterComponent, 
@@ -33,7 +34,8 @@ interface Product {
     LoadingSpinnerComponent
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent implements OnInit {
   days: number = 6;
