@@ -41,7 +41,6 @@ export class ProductsComponent {
     ).subscribe(
       (data: any) => {
         this.products = data;
-        console.log('Fetched products:', this.products); // Check if the seller is populated
       },
       (error) => {
         console.error('Error fetching products:', error);
