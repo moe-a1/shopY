@@ -132,6 +132,48 @@
           </div>
         </div>
         
+        <div class="mb-8 border-b pb-6">
+          <h3 class="text-lg font-semibold mb-4">Write a Review</h3>
+          
+          <div *ngIf="!isLoggedIn" class="bg-gray-100 rounded-lg p-4 text-center">
+            <p>Please <a [routerLink]="['/login']" class="text-[#8B1F41] font-medium">login</a> to write a review</p>
+          </div>
+          
+          <form *ngIf="isLoggedIn" (submit)="submitReview()" class="space-y-4">
+            <div>
+              <label for="rating" class="block text-sm font-medium text-gray-700 mb-1">Your Rating</label>
+              <div class="flex items-center">
+                <div *ngFor="let star of [1,2,3,4,5]" class="cursor-pointer" (click)="setRating(star)">
+                  <i class="fas fa-star text-xl"
+                     [class.text-yellow-400]="star <= newReview.rating"
+                     [class.text-gray-300]="star > newReview.rating"></i>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <label for="comment" class="block text-sm font-medium text-gray-700 mb-1">Your Review</label>
+              <textarea 
+                id="comment"
+                [(ngModel)]="newReview.comment"
+                name="comment"
+                rows="4"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#8B1F41] focus:border-[#8B1F41]"
+                placeholder="Share your thoughts about this product..."></textarea>
+            </div>
+            
+            <button 
+              type="submit"
+              [disabled]="!newReview.rating || !newReview.comment"
+              class="bg-[#8B1F41] text-white py-2 px-6 rounded-lg shadow hover:bg-[#7A1B39] transition font-medium disabled:opacity-50 disabled:cursor-not-allowed">
+              Submit Review
+            </button>
+          </form>
+          
+          <div class="notification" id="review-notification">
+            Review submitted successfully!
+          </div>
+        </div>
       </div>
 
       <!-- Related Products Section -->
