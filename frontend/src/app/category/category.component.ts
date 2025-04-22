@@ -10,13 +10,6 @@ import { LoadingService } from '../services/loading.service';
 import { finalize } from 'rxjs/operators';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
-interface PaginatedProductsResponse {
-  products: any[];
-  currentPage: number;
-  totalPages: number;
-  totalProducts: number;
-}
-
 @Component({
   selector: 'app-category',
   imports: [
@@ -39,9 +32,6 @@ export class CategoryComponent {
   currentPriceRange: number = 0; // Current price range for filtering
   sortOptions: string[] = ['Most Popular', 'Price: Low to High', 'Price: High to Low', 'Newest First'];
   selectedSort: string = 'Most Popular';
-  currentPage: number = 1;
-  totalPages: number = 1;
-  limit: number = 6;
 
   constructor(
     private http: HttpClient,
@@ -53,22 +43,20 @@ export class CategoryComponent {
     // Get the category name from the route parameters
     this.route.params.subscribe(params => {
       this.categoryName = params['categoryName'];
-      this.fetchProductsByCategory(this.currentPage);
+      this.fetchProductsByCategory();
       this.fetchPriceRange();
     });
   }
 
-  fetchProductsByCategory(page: number): void {
+  // Fetch products by category from the backend
+  fetchProductsByCategory(): void {
     this.loadingService.setLoading(true);
     const formattedCategoryName = this.categoryName.charAt(0).toUpperCase() + this.categoryName.slice(1);
-    this.http.get<PaginatedProductsResponse>(`http://localhost:5000/api/products/category/${formattedCategoryName}?page=${page}&limit=${this.limit}`).pipe(
+    this.http.get(`http://localhost:5000/api/products/category/${formattedCategoryName}`).pipe(
       finalize(() => this.loadingService.setLoading(false))
     ).subscribe(
-      (data) => {
-        this.products = data.products;
-        this.currentPage = data.currentPage;
-        this.totalPages = data.totalPages;
-        this.sortProducts(this.selectedSort);
+      (data: any) => {
+        this.products = data;
       },
       (error) => {
         console.error('Error fetching products by category:', error);
@@ -100,8 +88,6 @@ export class CategoryComponent {
     ).subscribe(
       (data: any) => {
         this.products = data;
-        this.currentPage = 1;
-        this.totalPages = 1;
       },
       (error) => {
         console.error('Error applying filter:', error);
@@ -127,24 +113,5 @@ export class CategoryComponent {
         this.products.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         break;
     }
-  }
-
-  prevPage(): void {
-    if (this.currentPage > 1) {
-      this.fetchProductsByCategory(this.currentPage - 1);
-    }
-  }
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.fetchProductsByCategory(this.currentPage + 1);
-    }
-  }
-  goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.fetchProductsByCategory(page);
-    }
-  }
-  getPageNumbers(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
   }
 }
