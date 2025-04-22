@@ -1,12 +1,23 @@
-<app-nav></app-nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  
+  <app-nav></app-nav>
+<br>
 <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
     <div class="flex items-center mb-6">
-      <button type="button" class="text-blue-600 hover:text-blue-800 mr-4" (click)="goBack()">
+      <button type="button" class="text-[#7B2334] hover:text-[#9F3247] mr-4" (click)="goBack()">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-      <h2 class="text-2xl font-bold text-gray-800">My Profile</h2>
+      <h2 class="text-2xl font-bold text-[#7B2334]">My Profile</h2>
     </div>
     
     <form (ngSubmit)="updateProfile()" #profileForm="ngForm" novalidate>
@@ -62,7 +73,7 @@
         <div class="pt-4">
           <button 
             type="submit" 
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-[#7B2334] hover:bg-[#9F3247] text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
             [disabled]="profileForm.invalid"
           >
             Update Profile
@@ -71,6 +82,7 @@
       </div>
     </form>
   </div>
+  <br>
 <app-footer></app-footer>
-
-  
+</body>
+</html>
