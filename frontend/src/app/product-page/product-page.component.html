@@ -111,24 +111,27 @@
         </div>
       
         <!-- Reviews List -->
-        <div class="space-y-4">
-          <div *ngFor="let review of product?.reviews" class="border-b pb-4">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                <i class="fas fa-user text-sm"></i>
+        <div class="overflow-x-auto">
+          <div class="flex space-x-4 pb-4">
+            <div *ngFor="let review of product?.reviews" class="min-w-[300px] max-w-xs border rounded-lg p-4 shadow-sm bg-white">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                  <i class="fas fa-user text-sm"></i>
+                </div>
+                <span class="font-medium">{{ review.user.username }}</span>
+                <div class="flex items-center ml-auto">
+                  <i *ngFor="let star of [1,2,3,4,5]" 
+                     class="fas fa-star text-sm"
+                     [class.text-yellow-400]="star <= review.rating"
+                     [class.text-gray-300]="star > review.rating"></i>
+                </div>
               </div>
-              <span class="font-medium">{{ review.user.username }}</span>
-              <div class="flex items-center">
-                <i *ngFor="let star of [1,2,3,4,5]" 
-                   class="fas fa-star text-sm"
-                   [class.text-yellow-400]="star <= review.rating"
-                   [class.text-gray-300]="star > review.rating"></i>
-              </div>
+              <p class="text-gray-600 mb-2">{{ review.comment }}</p>
+              <span class="text-sm text-gray-400">{{ review.createdAt | date }}</span>
             </div>
-            <p class="text-gray-600">{{ review.comment }}</p>
-            <span class="text-sm text-gray-400">{{ review.createdAt | date }}</span>
           </div>
         </div>
+        
       </div>
 
       <!-- Related Products Section -->
