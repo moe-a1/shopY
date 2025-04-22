@@ -83,7 +83,6 @@ export class ProductPageComponent implements OnInit {
         next: (product) => {
           this.product = product;
           this.averageRating = this.calculateAverageRating();
-          console.log('Product details:', product);
         },
         error: (error) => {
           console.error('Error fetching product:', error);

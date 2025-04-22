@@ -37,7 +37,6 @@ export class CartComponent implements OnInit {
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('accessToken'); 
-    console.log(token);
     return new HttpHeaders({
       token: `Bearer ${token}` 
     });

@@ -64,7 +64,6 @@ export class HomeComponent implements OnInit {
       .subscribe(
         (data) => {
           this.products = data;
-          console.log('Fetched products:', this.products);
         },
         (error) => {
           console.error('Error fetching random products:', error);
