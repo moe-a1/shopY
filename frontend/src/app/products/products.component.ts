@@ -32,6 +32,8 @@ export class ProductsComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
   limit: number = 6;
+  categories: any[] = []; // Array to store categories
+  selectedCategory: string = ''; // Selected category for filtering
 
   constructor(
     private http: HttpClient,
@@ -41,6 +43,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.fetchProducts(this.currentPage);
     this.fetchPriceRange();
+    this.fetchCategories(); // Fetch categories on initialization
   }
 
   // Fetch all products from the backend
@@ -76,6 +79,21 @@ export class ProductsComponent implements OnInit {
     );
   }
 
+  // Fetch categories from the backend
+  fetchCategories(): void {
+    this.loadingService.setLoading(true);
+    this.http.get('http://localhost:5000/api/category/getAllCategories').pipe(
+      finalize(() => this.loadingService.setLoading(false))
+    ).subscribe(
+      (data: any) => {
+        this.categories = data;
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }
+
   // Apply filter based on the current price range
   applyFilter(): void {
     this.loadingService.setLoading(true);
@@ -95,6 +113,34 @@ export class ProductsComponent implements OnInit {
           console.error('Error applying filter:', error);
         }
       );
+  }
+
+  // Apply filter based on the selected category
+  applyCategoryFilter(): void {
+    this.loadingService.setLoading(true);
+    const categoryFilterUrl = this.selectedCategory 
+      ? `http://localhost:5000/api/products/category/${this.selectedCategory}`
+      : `http://localhost:5000/api/products/?page=${this.currentPage}&limit=${this.limit}`;
+    
+    this.http.get(categoryFilterUrl).pipe(
+      finalize(() => this.loadingService.setLoading(false))
+    ).subscribe(
+      (data: any) => {
+        if (this.selectedCategory) {
+          this.products = data.products || data; // Handle paginated or non-paginated response
+          this.currentPage = 1;
+          this.totalPages = 1;
+        } else {
+          this.products = data.products;
+          this.currentPage = data.currentPage;
+          this.totalPages = data.totalPages;
+        }
+        this.sortProducts(this.selectedSort);
+      },
+      (error) => {
+        console.error('Error applying category filter:', error);
+      }
+    );
   }
 
   // Sort products based on the selected option

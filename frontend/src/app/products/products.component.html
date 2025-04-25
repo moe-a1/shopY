@@ -20,6 +20,23 @@
         
         <div class="mb-6">
           <div class="flex justify-between items-center mb-2">
+            <h3 class="text-[#7B2334] font-semibold">Categories</h3>
+          </div>
+          
+          <div class="px-2">
+            <select 
+              [(ngModel)]="selectedCategory" 
+              (change)="applyCategoryFilter()"
+              class="w-full border rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#7B2334]"
+            >
+              <option value="">All Categories</option>
+              <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-2">
             <h3 class="text-[#7B2334] font-semibold">Price</h3>
           </div>
           
