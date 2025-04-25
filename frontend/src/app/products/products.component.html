@@ -101,7 +101,7 @@
           <button 
             (click)="prevPage()" 
             [disabled]="currentPage === 1"
-            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
+            class="px-4 py-2 bg-[#7B2334] text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#9F3247]"
           >
             Previous
           </button>
@@ -113,7 +113,7 @@
               [class.text-white]="currentPage === pageNum"
               [class.bg-gray-200]="currentPage !== pageNum"
               [class.text-gray-700]="currentPage !== pageNum"
-              class="px-4 py-2 rounded-md hover:bg-gray-300"
+              class="px-4 py-2 bg-[#7B2334] text-white rounded-md hover:bg-[#9F3247] hover:text-white"
             >
               {{ pageNum }}
             </button>
@@ -122,7 +122,7 @@
           <button 
             (click)="nextPage()" 
             [disabled]="currentPage === totalPages"
-            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
+            class="px-4 py-2 bg-[#7B2334] text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#9F3247]"
           >
             Next
           </button>

@@ -83,7 +83,6 @@ export class ProductsComponent implements OnInit {
   fetchCategories(): void {
     this.loadingService.setLoading(true);
     this.http.get('http://localhost:5000/api/category/getAllCategories').pipe(
-      finalize(() => this.loadingService.setLoading(false))
     ).subscribe(
       (data: any) => {
         this.categories = data;

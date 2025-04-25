@@ -18,7 +18,7 @@
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div class="flex items-center justify-between">
           <h1 class="text-3xl font-bold">
-              <a routerLink="/">ShopY</a>
+              <a routerLink="/">TradeBaz</a>
           </h1>
           <button class="md:hidden">☰</button>
           </div>
@@ -27,11 +27,11 @@
                 <a routerLink="/home" routerLinkActive="text-[#7B2334] font-semibold">Home</a>
                 <a routerLink="/products" routerLinkActive="text-[#7B2334] font-semibold">Products</a>
                 <a routerLink="/sell" routerLinkActive="text-[#7B2334] font-semibold">Sell</a>
-                <a routerLink="/bazaar" routerLinkActive="text-[#7B2334] font-semibold" [routerLinkActiveOptions]="{ exact: true }">Bazaar</a>
+                <a routerLink="/bazaar" routerLinkActive="text-[#7B2334] font-semibold">Bazaar</a>
               </div>
       
               <div class="flex items-center flex-1 mx-4 gap-4">
-                <div class="relative w-full md:w-[850px] flex items-center">
+                <div class="relative w-full md:w-[750px] flex items-center">
                   <input
                     type="text"
                     [(ngModel)]="searchQuery"
@@ -113,7 +113,7 @@
               </div>
       
               <div *ngIf="isBazaarPage">
-                <button class="px-5 py-2 rounded-full text-white font-bold bg-gradient-to-r from-pink-500 to-red-600 shadow-lg animate-bounce hover:scale-105 transition-transform duration-300">
+                <button routerLink="/bazaar/comingSoon" class="px-5 py-2 rounded-full text-white font-bold bg-gradient-to-r from-pink-500 to-red-600 shadow-lg animate-bounce hover:scale-105 transition-transform duration-300">
                   🚀 Coming Soon
                 </button>
               </div>

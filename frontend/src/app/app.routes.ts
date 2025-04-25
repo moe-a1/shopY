@@ -15,6 +15,8 @@ import { CategoryComponent } from './category/category.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { OrderComponent } from './order/order.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BazaarPageComponent } from './bazaar-page/bazaar-page.component';
+import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -33,5 +35,7 @@ export const routes: Routes = [
     { path: 'product/:id', component: ProductPageComponent },
     { path: 'orders', component: OrderComponent },
     { path: 'profile', component: ProfileComponent },
+    { path: 'bazaar/bazaarPage', component: BazaarPageComponent },
+    { path: 'bazaar/comingSoon', component:ComingSoonComponent },
 ];
 
