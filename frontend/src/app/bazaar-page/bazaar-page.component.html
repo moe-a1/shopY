@@ -56,29 +56,32 @@
       
       <!-- Categories list -->
       <div class="grid grid-cols-1 gap-8">
-        <a *ngFor="let category of bazaar?.categories" href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="md:flex">
-              <div class="md:flex-shrink-0">
-                <!-- Use first image from category if available, otherwise use default mapping -->
-                <img
-                  class="h-48 w-full object-cover md:w-64"
-                  [src]="category.images?.length ? category.images[0] : getCategoryImage(category.name)"
-                  [alt]="category.name"
-                />
-              </div>
-              <div class="p-8">
-                <h1 class="text-2xl font-semibold text-[#7B2334] mb-2">
-                  {{ category.name }}
-                </h1>
-                <br>
-                <p class="text-gray-800">
-                  Brands: {{ category.brandsNames }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </a>
+        <a
+  *ngFor="let category of bazaar?.categories"
+  [routerLink]="['/bazaarCategory', category.name]"
+  class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+>
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="md:flex">
+      <div class="md:flex-shrink-0">
+        <img
+          class="h-48 w-full object-cover md:w-64"
+          [src]="category.images?.length ? category.images[0] : getCategoryImage(category.name)"
+          [alt]="category.name"
+        />
+      </div>
+      <div class="p-8">
+        <h1 class="text-2xl font-semibold text-[#7B2334] mb-2">
+          {{ category.name }}
+        </h1>
+        <br />
+        <p class="text-gray-800">
+          {{ category.brandsNames }}
+        </p>
+      </div>
+    </div>
+  </div>
+</a>
       </div>
       
       <!-- Fallback content for backward compatibility -->

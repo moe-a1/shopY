@@ -65,7 +65,7 @@
         <!-- Coming Soon Bazaars List -->
         <div class="grid grid-cols-1 gap-8" *ngIf="!isLoading && comingSoonBazaars.length > 0">
           <!-- Dynamic Bazaar Items -->
-          <a *ngFor="let bazaar of comingSoonBazaars" [routerLink]="['/bazaar/bazaarPage', bazaar._id]" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" [attr.aria-label]="'View ' + bazaar.name + ' details'">
+          <a *ngFor="let bazaar of comingSoonBazaars" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" [attr.aria-label]="'View ' + bazaar.name + ' details'">
             <div class="md:flex">
               <div class="md:flex-shrink-0 relative">
                 <img

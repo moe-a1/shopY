@@ -17,6 +17,7 @@ import { OrderComponent } from './order/order.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BazaarPageComponent } from './bazaar-page/bazaar-page.component';
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -37,5 +38,7 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'bazaar/bazaarPage/:id', component: BazaarPageComponent },
     { path: 'bazaar/comingSoon', component:ComingSoonComponent },
+    { path: 'bazaarCategory/:name', component: CategoryPageComponent }, 
+
 ];
 
