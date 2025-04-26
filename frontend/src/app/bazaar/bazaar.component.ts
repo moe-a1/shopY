@@ -35,7 +35,7 @@ export class BazaarComponent implements OnInit {
 
   // Images mapping for bazaars (temporary solution until we have images in the DB)
   private imageMapping: { [key: string]: string } = {
-    'Americana Plaza Bazaar': 'images/Americana.jpeg',
+    'Americana Plaza': 'images/Americana.jpeg',
     '6th of October Club Bazaar': 'images/Shopping.png', 
     'Ezz El-Din Faisal Bazaar': 'images/Ezz.png',
     // Add default image for any other bazaars
