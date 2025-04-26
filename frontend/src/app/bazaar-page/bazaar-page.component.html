@@ -4,32 +4,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bazaar </title>
+  <title>Bazaar Details</title>
   <link rel="stylesheet" href="https://unpkg.com/lucide-static/font/lucide.css">
   <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class=" bg-gray-50 font-inter">
+<body class="bg-gray-50 font-inter">
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex gap-8">
-      <!-- Sidebar -->
-
-
-      <!-- Main Content -->
-       
-      <div class="flex-1">
-        <div class="grid grid-cols-1 gap-8">
-          <!-- Bazaar Item 1 -->
-          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
+    
+    <!-- Loading state -->
+    <div *ngIf="isLoading" class="text-center py-10">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-[#7B2334] border-t-transparent"></div>
+      <p class="mt-2 text-gray-600">Loading bazaar details...</p>
+    </div>
+    
+    <!-- Error state -->
+    <div *ngIf="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+      {{ error }}
+    </div>
+    
+    <!-- Bazaar Header -->
+    <div *ngIf="!isLoading && bazaar" class="mb-8">
+      <h1 class="text-3xl font-bold text-[#7B2334] mb-2">{{ bazaar.name }}</h1>
+      <div class="flex flex-wrap gap-4 text-gray-600">
+        <p><strong>Partitions:</strong> {{ bazaar.partitionInfo }}</p>
+        <p><strong>Open Days:</strong> {{ bazaar.openDates }}</p>
+        <p><strong>Hours:</strong> {{ bazaar.openTimes }}</p>
+      </div>
+    </div>
+    
+    <!-- Categories Section -->
+    <div *ngIf="!isLoading">
+      <h2 class="text-2xl font-semibold text-[#7B2334] mb-6">Categories</h2>
+      
+      <!-- No categories message -->
+      <div *ngIf="!bazaar?.categories || bazaar?.categories?.length === 0" class="text-center py-10">
+        <p class="text-gray-600">No categories available for this bazaar.</p>
+      </div>
+      
+      <!-- Categories list -->
+      <div class="grid grid-cols-1 gap-8">
+        <a *ngFor="let category of bazaar?.categories" href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="md:flex">
+              <div class="md:flex-shrink-0">
+                <!-- Use first image from category if available, otherwise use default mapping -->
+                <img
+                  class="h-48 w-full object-cover md:w-64"
+                  [src]="category.images?.length ? category.images[0] : getCategoryImage(category.name)"
+                  [alt]="category.name"
+                />
+              </div>
+              <div class="p-8">
+                <h1 class="text-2xl font-semibold text-[#7B2334] mb-2">
+                  {{ category.name }}
+                </h1>
+                <br>
+                <p class="text-gray-800">
+                  Brands: {{ category.brandsNames }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Fallback content for backward compatibility -->
+      <div *ngIf="!bazaarId" class="grid grid-cols-1 gap-8">
+        <!-- Hardcoded categories for backward compatibility -->
+        <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" aria-label="View Clothes category">
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="md:flex">
               <div class="md:flex-shrink-0">
                 <img
                   class="h-48 w-full object-cover md:w-64"
                   src="https://images.pexels.com/photos/4347654/pexels-photo-4347654.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-                  alt="October Bazaar for Antiques"
+                  alt="Clothes category"
                 />
               </div>
               <div class="p-8">
@@ -43,17 +95,16 @@
               </div>
             </div>
           </div>
-          </a>
+        </a>
 
-          <!-- Bazaar Item 2 -->
-          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
+        <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" aria-label="View Shoes category">
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="md:flex">
               <div class="md:flex-shrink-0">
                 <img
                   class="h-48 w-full object-cover md:w-64"
                   src="https://images.pexels.com/photos/12252411/pexels-photo-12252411.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-                  alt="Ataba bazaar for royal things"
+                  alt="Shoes category"
                 />
               </div>
               <div class="p-8">
@@ -67,30 +118,28 @@
               </div>
             </div>
           </div>
-          </a>
+        </a>
 
-          <!-- Bazaar Item 3 -->
-          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
-            <div class="md:flex">
-              <div class="md:flex-shrink-0">
-                <img
-                  class="h-48 w-full object-cover md:w-64"
-                  src="https://images.pexels.com/photos/29401618/pexels-photo-29401618/free-photo-of-elegant-display-of-luxury-perfume-bottles.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="Port Said Bazaar with used stuff"
-                />
-              </div>
-              <div class="p-8">
-                <h1 class="text-2xl font-semibold text-[#7B2334] mb-2">
-                  Perfumes 
-                </h1>
-                <br>
-                <p class="text-gray-800">
-                 Brands : Armani , Dior, Gucci,(YSL), and more .
-                </p>
-              </div>
+        <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" aria-label="View Perfumes category">
+          <div class="md:flex">
+            <div class="md:flex-shrink-0">
+              <img
+                class="h-48 w-full object-cover md:w-64"
+                src="https://images.pexels.com/photos/29401618/pexels-photo-29401618/free-photo-of-elegant-display-of-luxury-perfume-bottles.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt="Perfumes category"
+              />
             </div>
-          </a>
-        </div>
+            <div class="p-8">
+              <h1 class="text-2xl font-semibold text-[#7B2334] mb-2">
+                Perfumes 
+              </h1>
+              <br>
+              <p class="text-gray-800">
+               Brands : Armani , Dior, Gucci,(YSL), and more .
+              </p>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </main>

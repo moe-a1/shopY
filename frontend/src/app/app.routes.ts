@@ -35,7 +35,7 @@ export const routes: Routes = [
     { path: 'product/:id', component: ProductPageComponent },
     { path: 'orders', component: OrderComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'bazaar/bazaarPage', component: BazaarPageComponent },
+    { path: 'bazaar/bazaarPage/:id', component: BazaarPageComponent },
     { path: 'bazaar/comingSoon', component:ComingSoonComponent },
 ];
 
