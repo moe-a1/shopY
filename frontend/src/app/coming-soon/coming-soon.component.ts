@@ -17,6 +17,13 @@ interface Bazaar {
   imageUrl?: string; // For mapping images
 }
 
+interface PaginatedBazaarResponse {
+  bazaars: Bazaar[];
+  currentPage: number;
+  totalPages: number;
+  totalBazaars: number;
+}
+
 @Component({
   selector: 'app-coming-soon',
   standalone: true,
@@ -29,6 +36,11 @@ export class ComingSoonComponent implements OnInit {
   allComingSoonBazaars: Bazaar[] = []; // Store all bazaars for filtering
   isLoading = true;
   error = '';
+  
+  // Pagination properties
+  currentPage = 1;
+  totalPages = 1;
+  limit = 3;
   
   // Location filter properties
   locations: string[] = [];
@@ -47,17 +59,22 @@ export class ComingSoonComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchComingSoonBazaars();
+    this.fetchComingSoonBazaars(this.currentPage);
   }
 
-  fetchComingSoonBazaars(): void {
-    // Fetch all bazaars and filter for coming_soon
-    this.http.get<{bazaars: Bazaar[], currentPage: number, totalPages: number}>('http://localhost:5000/api/bazaar')
+  fetchComingSoonBazaars(page: number): void {
+    this.isLoading = true;
+    // Modified the query to fetch only coming_soon bazaars directly from the API
+    this.http.get<PaginatedBazaarResponse>(`http://localhost:5000/api/bazaar?page=${page}&limit=${this.limit}&status=coming_soon`)
       .subscribe({
         next: (response) => {
-          // Filter only coming_soon bazaars
-          this.allComingSoonBazaars = response.bazaars.filter(bazaar => bazaar.status === 'coming_soon');
-          this.comingSoonBazaars = this.allComingSoonBazaars;
+          // No need to filter here since we're requesting only coming_soon bazaars
+          this.comingSoonBazaars = response.bazaars;
+          this.allComingSoonBazaars = response.bazaars;
+          
+          // Set pagination data based on the response
+          this.currentPage = response.currentPage;
+          this.totalPages = response.totalPages;
           
           // Add image URLs based on bazaar name mapping
           this.comingSoonBazaars.forEach(bazaar => {
@@ -134,20 +151,38 @@ export class ComingSoonComponent implements OnInit {
   // Apply location filter
   applyLocationFilter(): void {
     if (!this.selectedLocation) {
-      // If no location selected, show all bazaars
-      this.comingSoonBazaars = this.allComingSoonBazaars;
+      // If no location selected, show all coming soon bazaars
+      this.fetchComingSoonBazaars(1);
     } else {
-      // Filter bazaars by selected location
-      this.comingSoonBazaars = this.allComingSoonBazaars.filter(bazaar => {
-        const locationName = this.extractLocationNameFromUrl(bazaar.location);
-        return locationName === this.selectedLocation;
-      });
+      // Get all coming soon bazaars first to apply location filter properly
+      this.http.get<PaginatedBazaarResponse>('http://localhost:5000/api/bazaar?limit=1000&status=coming_soon')
+        .subscribe({
+          next: (response) => {
+            // Filter bazaars by selected location
+            const filteredBazaars = response.bazaars.filter(bazaar => {
+              const locationName = this.extractLocationNameFromUrl(bazaar.location);
+              return locationName === this.selectedLocation;
+            });
+
+            // Set the filtered bazaars to display
+            this.comingSoonBazaars = filteredBazaars.slice(0, this.limit);
+            this.allComingSoonBazaars = filteredBazaars;
+            
+            // Update pagination information
+            this.currentPage = 1;
+            this.totalPages = Math.ceil(filteredBazaars.length / this.limit);
+            
+            // Add image URLs based on bazaar name mapping
+            this.comingSoonBazaars.forEach(bazaar => {
+              bazaar.imageUrl = this.imageMapping[bazaar.name] || this.imageMapping['default'];
+            });
+          },
+          error: (err) => {
+            console.error('Error applying location filter:', err);
+            this.error = 'Failed to apply filter. Please try again later.';
+          }
+        });
     }
-    
-    // Re-add image URLs for filtered bazaars
-    this.comingSoonBazaars.forEach(bazaar => {
-      bazaar.imageUrl = this.imageMapping[bazaar.name] || this.imageMapping['default'];
-    });
   }
 
   openLocation(event: Event, location: string, bazaarName?: string) {
@@ -193,5 +228,58 @@ export class ComingSoonComponent implements OnInit {
     } else {
       console.warn('Location not found for:', location);
     }
+  }
+  
+  // Pagination methods
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      if (this.selectedLocation) {
+        this.navigateFilteredPage(this.currentPage - 1);
+      } else {
+        this.fetchComingSoonBazaars(this.currentPage - 1);
+      }
+    }
+  }
+  
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      if (this.selectedLocation) {
+        this.navigateFilteredPage(this.currentPage + 1);
+      } else {
+        this.fetchComingSoonBazaars(this.currentPage + 1);
+      }
+    }
+  }
+  
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      if (this.selectedLocation) {
+        this.navigateFilteredPage(page);
+      } else {
+        this.fetchComingSoonBazaars(page);
+      }
+    }
+  }
+  
+  getPageNumbers(): number[] {
+    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  }
+
+  // Navigation for filtered results
+  navigateFilteredPage(pageNumber: number): void {
+    if (!this.selectedLocation || pageNumber < 1 || pageNumber > this.totalPages) {
+      return;
+    }
+    
+    // Calculate the slice of bazaars to show for this page
+    const startIndex = (pageNumber - 1) * this.limit;
+    const endIndex = startIndex + this.limit;
+    this.comingSoonBazaars = this.allComingSoonBazaars.slice(startIndex, endIndex);
+    this.currentPage = pageNumber;
+    
+    // Add image URLs for the current page
+    this.comingSoonBazaars.forEach(bazaar => {
+      bazaar.imageUrl = this.imageMapping[bazaar.name] || this.imageMapping['default'];
+    });
   }
 }

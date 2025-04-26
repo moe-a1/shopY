@@ -17,6 +17,13 @@ interface Bazaar {
   imageUrl?: string; // For image mapping
 }
 
+interface PaginatedBazaarResponse {
+  bazaars: Bazaar[];
+  currentPage: number;
+  totalPages: number;
+  totalBazaars: number;
+}
+
 @Component({
   selector: 'app-bazaar',
   standalone: true,
@@ -30,6 +37,11 @@ export class BazaarComponent implements OnInit {
   isLoading = true;
   error = '';
   
+  // Pagination properties
+  currentPage = 1;
+  totalPages = 1;
+  limit = 3;
+  
   // Location filter properties
   locations: string[] = [];
   selectedLocation: string = '';
@@ -39,6 +51,8 @@ export class BazaarComponent implements OnInit {
     'Americana Plaza': 'images/Americana.jpeg',
     '6th of October Club Bazaar': 'images/Shopping.png', 
     'Ezz El-Din Faisal Bazaar': 'images/Ezz.png',
+    'Khan Al-Khalili': 'images/bazar.jpg',
+    'GoldStore': 'images/bazar.jpg',
     // Add default image for any other bazaars
     'default': 'images/bazar.jpg'
   };
@@ -46,15 +60,39 @@ export class BazaarComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchBazaars();
+    this.fetchBazaars(this.currentPage);
   }
 
-  fetchBazaars(): void {
-    this.http.get<{bazaars: Bazaar[], currentPage: number, totalPages: number}>('http://localhost:5000/api/bazaar')
+  fetchBazaars(page: number): void {
+    this.isLoading = true;
+    // Modified the query to fetch only active bazaars directly from the API
+    this.http.get<PaginatedBazaarResponse>(`http://localhost:5000/api/bazaar?page=${page}&limit=${this.limit}&status=active`)
       .subscribe({
         next: (response) => {
-          this.allBazaars = response.bazaars.filter(bazaar => bazaar.status === 'active');
-          this.bazaars = this.allBazaars;
+          // No need to filter here since we're requesting only active bazaars
+          this.bazaars = response.bazaars;
+          this.allBazaars = response.bazaars;
+          
+          // Set pagination data based on the response
+          this.currentPage = response.currentPage;
+          
+          // We need to make an additional request to get the total count of active bazaars
+          this.http.get<PaginatedBazaarResponse>('http://localhost:5000/api/bazaar?limit=1000&status=active')
+            .subscribe({
+              next: (allResponse) => {
+                const totalActiveBazaars = allResponse.bazaars.length;
+                this.totalPages = Math.ceil(totalActiveBazaars / this.limit);
+                
+                // If current page is greater than total pages, go to last page
+                if (this.currentPage > this.totalPages && this.totalPages > 0) {
+                  this.fetchBazaars(this.totalPages);
+                  return;
+                }
+              },
+              error: (err) => {
+                console.error('Error fetching all bazaars for count:', err);
+              }
+            });
           
           // Add image URLs based on bazaar name mapping
           this.bazaars.forEach(bazaar => {
@@ -130,19 +168,37 @@ export class BazaarComponent implements OnInit {
   applyLocationFilter(): void {
     if (!this.selectedLocation) {
       // If no location selected, show all bazaars
-      this.bazaars = this.allBazaars;
+      this.fetchBazaars(1);
     } else {
-      // Filter bazaars by selected location
-      this.bazaars = this.allBazaars.filter(bazaar => {
-        const locationName = this.extractLocationNameFromUrl(bazaar.location);
-        return locationName === this.selectedLocation;
-      });
+      // Get all active bazaars first to apply location filter properly
+      this.http.get<PaginatedBazaarResponse>('http://localhost:5000/api/bazaar?limit=1000&status=active')
+        .subscribe({
+          next: (response) => {
+            // Filter bazaars by selected location
+            const filteredBazaars = response.bazaars.filter(bazaar => {
+              const locationName = this.extractLocationNameFromUrl(bazaar.location);
+              return locationName === this.selectedLocation;
+            });
+
+            // Set the filtered bazaars to display
+            this.bazaars = filteredBazaars.slice(0, this.limit);
+            this.allBazaars = filteredBazaars;
+            
+            // Update pagination information
+            this.currentPage = 1;
+            this.totalPages = Math.ceil(filteredBazaars.length / this.limit);
+            
+            // Add image URLs based on bazaar name mapping
+            this.bazaars.forEach(bazaar => {
+              bazaar.imageUrl = this.imageMapping[bazaar.name] || this.imageMapping['default'];
+            });
+          },
+          error: (err) => {
+            console.error('Error applying location filter:', err);
+            this.error = 'Failed to apply filter. Please try again later.';
+          }
+        });
     }
-    
-    // Re-add image URLs for filtered bazaars
-    this.bazaars.forEach(bazaar => {
-      bazaar.imageUrl = this.imageMapping[bazaar.name] || this.imageMapping['default'];
-    });
   }
 
   openLocation(event: Event, location: string, bazaarName?: string) {
@@ -182,5 +238,58 @@ export class BazaarComponent implements OnInit {
     } else {
       console.warn('Location not found for:', location);
     }
+  }
+  
+  // Pagination methods
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      if (this.selectedLocation) {
+        this.navigateFilteredPage(this.currentPage - 1);
+      } else {
+        this.fetchBazaars(this.currentPage - 1);
+      }
+    }
+  }
+  
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      if (this.selectedLocation) {
+        this.navigateFilteredPage(this.currentPage + 1);
+      } else {
+        this.fetchBazaars(this.currentPage + 1);
+      }
+    }
+  }
+  
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      if (this.selectedLocation) {
+        this.navigateFilteredPage(page);
+      } else {
+        this.fetchBazaars(page);
+      }
+    }
+  }
+  
+  getPageNumbers(): number[] {
+    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  }
+
+  // Navigation for filtered results
+  navigateFilteredPage(pageNumber: number): void {
+    if (!this.selectedLocation || pageNumber < 1 || pageNumber > this.totalPages) {
+      return;
+    }
+    
+    // Calculate the slice of bazaars to show for this page
+    const startIndex = (pageNumber - 1) * this.limit;
+    const endIndex = startIndex + this.limit;
+    this.bazaars = this.allBazaars.slice(startIndex, endIndex);
+    this.currentPage = pageNumber;
+    
+    // Add image URLs for the current page
+    this.bazaars.forEach(bazaar => {
+      bazaar.imageUrl = this.imageMapping[bazaar.name] || this.imageMapping['default'];
+    });
   }
 }
