@@ -15,6 +15,7 @@ interface BazaarCategory {
 interface Bazaar {
   _id: string;
   name: string;
+  status?: 'active' | 'coming_soon';
   partitionInfo: string;
   openDates: string;
   openTimes: string;
