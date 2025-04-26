@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavComponent } from '../nav/nav.component';
 import { FooterComponent } from '../footer/footer.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -26,7 +26,7 @@ interface Bazaar {
 @Component({
   selector: 'app-bazaar-page',
   standalone: true,
-  imports: [NavComponent, FooterComponent, HttpClientModule, CommonModule],
+  imports: [NavComponent, FooterComponent, HttpClientModule, CommonModule, RouterModule],
   templateUrl: './bazaar-page.component.html',
   styleUrl: './bazaar-page.component.css'
 })
