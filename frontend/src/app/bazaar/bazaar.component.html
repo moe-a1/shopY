@@ -21,7 +21,24 @@
             <h2 class="text-lg font-semibold">Filter</h2>
             <i class="lucide-filter w-5 h-5 text-gray-500"></i>
           </div>
-          <button class="w-full bg-[#7B2334] text-white py-2 px-4 rounded-3xl ">
+          
+          <!-- Location Filter -->
+          <div class="mb-4">
+            <label for="location" class="block mb-2 text-sm font-medium text-gray-700">Location</label>
+            <select 
+              id="location" 
+              [(ngModel)]="selectedLocation" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#7B2334] focus:border-[#7B2334] text-sm"
+            >
+              <option value="">All Locations</option>
+              <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+            </select>
+          </div>
+          
+          <button 
+            (click)="applyLocationFilter()" 
+            class="w-full bg-[#7B2334] text-white py-2 px-4 rounded-3xl hover:bg-[#5a1926] transition-all duration-300"
+          >
             Apply Filter
           </button>
         </div>
