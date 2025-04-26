@@ -27,8 +27,18 @@
     
     <!-- Bazaar Header -->
     <div *ngIf="!isLoading && bazaar" class="mb-8">
-      <h1 class="text-3xl font-bold text-[#7B2334] mb-2">{{ bazaar.name }}</h1>
-      <div class="flex flex-wrap gap-4 text-gray-600">
+      <div class="flex justify-between items-center mb-2">
+        <h1 class="text-3xl font-bold text-[#7B2334]">{{ bazaar.name }}</h1>
+        <!-- Display Coming Soon badge if applicable -->
+        <div *ngIf="bazaar.status === 'coming_soon'" class="ml-4">
+          <span class="bg-[#7B2334]/80 text-white px-4 py-2 rounded-md font-bold">
+            Coming Soon
+          </span>
+        </div>
+      </div>
+      
+      <!-- Only show these details for active bazaars -->
+      <div *ngIf="bazaar.status !== 'coming_soon'" class="flex flex-wrap gap-4 text-gray-600">
         <p><strong>Partitions:</strong> {{ bazaar.partitionInfo }}</p>
         <p><strong>Open Days:</strong> {{ bazaar.openDates }}</p>
         <p><strong>Hours:</strong> {{ bazaar.openTimes }}</p>

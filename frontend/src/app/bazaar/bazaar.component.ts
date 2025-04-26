@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 interface Bazaar {
   _id: string;
   name: string;
+  status?: 'active' | 'coming_soon';
   partitionInfo: string;
   openDates: string;
   openTimes: string;
@@ -52,8 +53,8 @@ export class BazaarComponent implements OnInit {
     this.http.get<{bazaars: Bazaar[], currentPage: number, totalPages: number}>('http://localhost:5000/api/bazaar')
       .subscribe({
         next: (response) => {
-          this.allBazaars = response.bazaars;
-          this.bazaars = response.bazaars;
+          this.allBazaars = response.bazaars.filter(bazaar => bazaar.status === 'active');
+          this.bazaars = this.allBazaars;
           
           // Add image URLs based on bazaar name mapping
           this.bazaars.forEach(bazaar => {

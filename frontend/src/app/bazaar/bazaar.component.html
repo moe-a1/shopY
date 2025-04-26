@@ -66,7 +66,13 @@
         <div class="grid grid-cols-1 gap-8" *ngIf="!isLoading && bazaars.length > 0">
           <!-- Dynamic Bazaar Items -->
           <a *ngFor="let bazaar of bazaars" [routerLink]="['/bazaar/bazaarPage', bazaar._id]" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" attr.aria-label="View {{bazaar.name}} details">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden relative">
+              <!-- Coming Soon Badge -->
+              <div *ngIf="bazaar.status === 'coming_soon'" class="absolute top-0 right-0 m-2">
+                <span class="bg-[#7B2334]/80 text-white px-4 py-2 rounded-md font-bold text-lg transform rotate-315">
+                  Coming Soon
+                </span>
+              </div>
               <div class="md:flex">
                 <div class="md:flex-shrink-0">
                   <img
@@ -79,10 +85,10 @@
                   <h3 class="text-xl font-semibold text-[#7B2334] mb-2">
                     {{ bazaar.name }}
                   </h3>
-                  <p class="text-gray-600">
+                  <p *ngIf="bazaar.status !== 'coming_soon'" class="text-gray-600">
                     {{ bazaar.partitionInfo }}
                   </p>
-                  <p class="text-gray-600">
+                  <p *ngIf="bazaar.status !== 'coming_soon'" class="text-gray-600">
                     {{ bazaar.openDates }}
                     <br>
                     {{ bazaar.openTimes }}
