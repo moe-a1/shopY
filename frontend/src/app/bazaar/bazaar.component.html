@@ -25,114 +25,62 @@
             Apply Filter
           </button>
         </div>
-        
       </div>
 
       <!-- Main Content -->
-       
       <div class="flex-1">
-        <div class="grid grid-cols-1 gap-8">
-          <!-- Bazaar Item 1 -->
-          <a routerLink="/bazaar/bazaarPage" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="md:flex">
-              <div class="md:flex-shrink-0">
-                <img
-                  class="h-57 w-full object-full md:w-64"
-                  src="images/Americana.jpeg"
-                  alt="Americana Plaza Bazaar"
-                />
-              </div>
-              <div class="p-8">
-                <h3 class="text-xl font-semibold text-[#7B2334] mb-2">
-                   Americana Plaza Bazaar 
-                </h3>
-                <p class="text-gray-600">
-                  This bazaar includes 20 to 24 Partition 
-                </p>
-                <p class="text-gray-600">
-                  Opens Every Week from Thursday To Saturday 
-                  <br>
-                  From 10:00 AM To 1:00 AM 
-                </p>
-                <button 
-                (click)="openLocation($event, 'Americana')"
-                class="mt-4 bg-[#7B2334] text-white px-4 py-2 rounded-md hover:bg-[#7B2334]/90 transition-colors"
-                >
-                  View Location
-            </button>
-              </div>
-            </div>
-          </div>
-          </a>
-
-          <!-- Bazaar Item 2 -->
-          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="md:flex">
-              <div class="md:flex-shrink-0">
-                <img
-                  class="h-57 w-full object-full md:w-64"
-                  src="images/Shopping.png"
-                  alt="October Club"
-                />
-              </div>
-              <div class="p-8">
-                <h3 class="text-xl font-semibold text-[#7B2334] mb-2">
-                  6th of October  Club Bazaar 
-                </h3>
-                <p class="text-gray-600">
-                  This bazaar includes 10 to 17 Partition
-                </p>
-                <p class="text-gray-600">
-                  Opens Every Week from Sunday To Tuesday 
-                  <br>
-                  From 9:00 AM To 7:00 PM 
-                </p>
-                <button 
-                (click)="openLocation($event, 'shopping')"
-                class="mt-4 bg-[#7B2334] text-white px-4 py-2 rounded-md hover:bg-[#7B2334]/90 transition-colors"
-                >
-                  View Location
-            </button>
-              </div>
-            </div>
-          </div>
-          </a>
-
-          <!-- Bazaar Item 3 -->
-          <a href="#" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" aria-label="View Port Said Bazaar details">
-            <div class="md:flex">
-              <div class="md:flex-shrink-0">
-                <img
-                  class="h-57 w-full object-full md:w-64"
-                  src="images/Ezz.png"
-                  alt="Ezz El-Din Faisal Bazaar"
-                />
-              </div>
-              <div class="p-8">
-                <h3 class="text-xl font-semibold text-[#7B2334] mb-2">
-                  Ezz El-Din Faisal Bazaar
-                </h3>
-                <p class="text-gray-600">
-                  This bazaar includes   5 to 10 Partition
-                </p>
-                <p class="text-gray-600">
-                  Opens Every Day
-                  <br>
-                  From 11:00 AM To 12:00 AM 
-                </p>
-                <button 
-                (click)="openLocation($event, 'shopping')"
-                class="mt-4 bg-[#7B2334] text-white px-4 py-2 rounded-md hover:bg-[#7B2334]/90 transition-colors"
-                >
-                  View Location
-            </button>
+        <!-- Loading state -->
+        <div *ngIf="isLoading" class="text-center py-10">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-[#7B2334] border-t-transparent"></div>
+          <p class="mt-2 text-gray-600">Loading bazaars...</p>
+        </div>
+        
+        <!-- Error state -->
+        <div *ngIf="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          {{ error }}
+        </div>
+        
+        <!-- No bazaars found -->
+        <div *ngIf="!isLoading && !error && bazaars.length === 0" class="text-center py-10">
+          <p class="text-gray-600">No bazaars found.</p>
+        </div>
+        
+        <!-- Bazaar list -->
+        <div class="grid grid-cols-1 gap-8" *ngIf="!isLoading && bazaars.length > 0">
+          <!-- Dynamic Bazaar Items -->
+          <a *ngFor="let bazaar of bazaars" [routerLink]="['/bazaar/bazaarPage', bazaar._id]" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer aria-[current]:text-gray-900" attr.aria-label="View {{bazaar.name}} details">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <div class="md:flex">
+                <div class="md:flex-shrink-0">
+                  <img
+                    class="h-57 w-full object-full md:w-64"
+                    [src]="bazaar.imageUrl"
+                    [alt]="bazaar.name"
+                  />
+                </div>
+                <div class="p-8">
+                  <h3 class="text-xl font-semibold text-[#7B2334] mb-2">
+                    {{ bazaar.name }}
+                  </h3>
+                  <p class="text-gray-600">
+                    {{ bazaar.partitionInfo }}
+                  </p>
+                  <p class="text-gray-600">
+                    {{ bazaar.openDates }}
+                    <br>
+                    {{ bazaar.openTimes }}
+                  </p>
+                  <button 
+                    (click)="openLocation($event, bazaar.location, bazaar.name)"
+                    class="mt-4 bg-[#7B2334] text-white px-4 py-2 rounded-md hover:bg-[#7B2334]/90 transition-colors"
+                  >
+                    View Location
+                  </button>
+                </div>
               </div>
             </div>
           </a>
         </div>
-
       </div>
     </div>
   </main>
